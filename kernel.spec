@@ -56,7 +56,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 1
+%define stable_update 2
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -554,6 +554,9 @@ Patch305: arm-sdhci-esdhc-imx-fixes.patch
 # Fix accepted for 5.3 https://patchwork.kernel.org/patch/10992783/
 Patch306: arm64-dts-rockchip-Update-DWC3-modules-on-RK3399-SoCs.patch
 
+# RHBZ Bug 1576593 - work around while vendor investigates
+Patch307: arm-make-highpte-not-expert.patch
+
 # Raspberry Pi bits
 Patch330: ARM-cpufreq-support-for-Raspberry-Pi.patch
 
@@ -587,6 +590,9 @@ Patch508: KEYS-Make-use-of-platform-keyring-for-module-signature.patch
 Patch527: v2-powerpc-mm-mark-more-tlb-functions-as-__always_inline.patch
 
 Patch530: crypto-ghash-fix-unaligned-memory-access-in-ghash_setkey.patch
+
+# Fix the LCD panel orientation on the GPD MicroPC, pending as fix for 5.3
+Patch531: drm-panel-orientation-quirks.patch
 
 # END OF PATCH DEFINITIONS
 
@@ -1826,8 +1832,17 @@ fi
 #
 #
 %changelog
-* Sun Jul 14 2019 Justin M. Forbes <jforbes@redhat.com> - 5.2.1-200
+* Sun Jul 21 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.2-200
+- Linux v5.2.2
+
+* Sat Jul 20 2019 Justin M. Forbes <jforbes@redhat.com> - 5.2.1-200
 - Linux v5.2.1
+
+* Sat Jul 20 2019 Hans de Goede <hdegoede@redhat.com>
+- Fix the LCD panel orientation on the GPD MicroPC
+
+* Fri Jul 19 2019 Peter Robinson <pbrobinson@fedoraproject.org>
+- RHBZ Bug 1576593 - work around while vendor investigates
 
 * Tue Jul 09 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.0-200
 - Linux v5.2.0
