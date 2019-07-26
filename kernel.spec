@@ -56,7 +56,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 2
+%define stable_update 3
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -565,13 +565,6 @@ Patch331: watchdog-bcm2835_wdt-Fix-module-autoload.patch
 # Tegra bits
 Patch340: arm64-tegra-jetson-tx1-fixes.patch
 
-# QCom ACPI device support pieces
-Patch350: arm64-qcom-pinctrl-support-for-ACPI.patch
-Patch351: arm64-acpi-ignore-5.1-fadts-reported-as-5.0.patch
-Patch352: arm64-acpi-make-ac-and-battery-drivers-available-on-non-x86.patch
-Patch353: arm64-qcom-DWC3-USB-Add-support-for-ACPI-based-AArch64-Laptops.patch
-Patch354: arm64-ufs-qcom-Add-support-for-platforms-booting-ACPI.patch
-
 # 400 - IBM (ppc/s390x) patches
 
 # 500 - Temp fixes/CVEs etc
@@ -589,10 +582,11 @@ Patch508: KEYS-Make-use-of-platform-keyring-for-module-signature.patch
 # build fix
 Patch527: v2-powerpc-mm-mark-more-tlb-functions-as-__always_inline.patch
 
-Patch530: crypto-ghash-fix-unaligned-memory-access-in-ghash_setkey.patch
-
 # Fix the LCD panel orientation on the GPD MicroPC, pending as fix for 5.3
 Patch531: drm-panel-orientation-quirks.patch
+
+# rhbz 1732045
+Patch532: 0001-dma-direct-correct-the-physical-addr-in-dma_direct_s.patch
 
 # END OF PATCH DEFINITIONS
 
@@ -1832,6 +1826,12 @@ fi
 #
 #
 %changelog
+* Fri Jul 26 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.3-200
+- Linux v5.2.3
+
+* Mon Jul 22 2019 Laura Abbott <labbott@redhat.com>
+- Bring in DMA fix (rhbz 1732045)
+
 * Sun Jul 21 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.2-200
 - Linux v5.2.2
 
