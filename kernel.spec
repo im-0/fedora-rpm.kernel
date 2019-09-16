@@ -50,13 +50,13 @@ Summary: The Linux kernel
 # base_sublevel is the kernel version we're starting with and patching
 # on top of -- for example, 3.1-rc7-git1 starts with a 3.0 base,
 # which yields a base_sublevel of 0.
-%define base_sublevel 2
+%define base_sublevel 3
 
 ## If this is a released kernel ##
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 3
+%define stable_update 0
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -538,32 +538,32 @@ Patch212: efi-secureboot.patch
 # 300 - ARM patches
 Patch300: arm64-Add-option-of-13-for-FORCE_MAX_ZONEORDER.patch
 
-# http://www.spinics.net/lists/linux-tegra/msg26029.html
-Patch301: usb-phy-tegra-Add-38.4MHz-clock-table-entry.patch
-# http://patchwork.ozlabs.org/patch/587554/
-Patch302: ARM-tegra-usb-no-reset.patch
+# RHBZ Bug 1576593 - work around while vendor investigates
+Patch301: arm-make-highpte-not-expert.patch
 
 # https://patchwork.kernel.org/patch/10351797/
-Patch303: ACPI-scan-Fix-regression-related-to-X-Gene-UARTs.patch
+Patch302: ACPI-scan-Fix-regression-related-to-X-Gene-UARTs.patch
 # rhbz 1574718
-Patch304: ACPI-irq-Workaround-firmware-issue-on-X-Gene-based-m400.patch
+Patch303: ACPI-irq-Workaround-firmware-issue-on-X-Gene-based-m400.patch
+
+# http://www.spinics.net/lists/linux-tegra/msg26029.html
+Patch304: usb-phy-tegra-Add-38.4MHz-clock-table-entry.patch
+# http://patchwork.ozlabs.org/patch/587554/
+Patch305: ARM-tegra-usb-no-reset.patch
 
 # https://patchwork.kernel.org/project/linux-mmc/list/?submitter=71861
-Patch305: arm-sdhci-esdhc-imx-fixes.patch
-
-# Fix accepted for 5.3 https://patchwork.kernel.org/patch/10992783/
-Patch306: arm64-dts-rockchip-Update-DWC3-modules-on-RK3399-SoCs.patch
-
-# RHBZ Bug 1576593 - work around while vendor investigates
-Patch307: arm-make-highpte-not-expert.patch
-
-# Raspberry Pi bits
-Patch330: ARM-cpufreq-support-for-Raspberry-Pi.patch
-
-Patch331: watchdog-bcm2835_wdt-Fix-module-autoload.patch
+Patch306: arm-sdhci-esdhc-imx-fixes.patch
 
 # Tegra bits
-Patch340: arm64-tegra-jetson-tx1-fixes.patch
+Patch320: arm64-tegra-jetson-tx1-fixes.patch
+# https://www.spinics.net/lists/linux-tegra/msg43110.html
+Patch321: arm64-tegra-Jetson-TX2-Allow-bootloader-to-configure.patch
+
+# QCom laptop bits
+# https://patchwork.kernel.org/patch/11133827/
+Patch330: arm64-qcom-i2c-geni-Disable-DMA-processing-on-the-Lenovo-Yoga-C630.patch
+# https://patchwork.kernel.org/patch/11133293/
+Patch332: arm64-dts-qcom-Add-Lenovo-Yoga-C630.patch
 
 # 400 - IBM (ppc/s390x) patches
 
@@ -572,21 +572,11 @@ Patch340: arm64-tegra-jetson-tx1-fixes.patch
 Patch501: input-rmi4-remove-the-need-for-artifical-IRQ.patch
 
 # gcc9 fixes
-Patch506: 0001-s390-jump_label-Correct-asm-contraint.patch
 Patch507: 0001-Drop-that-for-now.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1701096
 # Submitted upstream at https://lkml.org/lkml/2019/4/23/89
 Patch508: KEYS-Make-use-of-platform-keyring-for-module-signature.patch
-
-# build fix
-Patch527: v2-powerpc-mm-mark-more-tlb-functions-as-__always_inline.patch
-
-# Fix the LCD panel orientation on the GPD MicroPC, pending as fix for 5.3
-Patch531: drm-panel-orientation-quirks.patch
-
-# rhbz 1732045
-Patch532: 0001-dma-direct-correct-the-physical-addr-in-dma_direct_s.patch
 
 # END OF PATCH DEFINITIONS
 
@@ -1369,7 +1359,6 @@ BuildKernel() {
     cp -a --parents tools/include/* $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
     cp -a --parents arch/x86/purgatory/purgatory.c $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
     cp -a --parents arch/x86/purgatory/stack.S $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
-    cp -a --parents arch/x86/purgatory/string.c $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
     cp -a --parents arch/x86/purgatory/setup-x86_64.S $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
     cp -a --parents arch/x86/purgatory/entry64.S $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
     cp -a --parents arch/x86/boot/string.h $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
@@ -1826,45 +1815,172 @@ fi
 #
 #
 %changelog
-* Fri Jul 26 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.3-200
-- Linux v5.2.3
+* Mon Sep 16 2019 Laura Abbott <labbott@redhat.com> - 5.3.0-1
+- Linux v5.3
+
+* Tue Sep 10 2019 Justin M. Forbes <jforbes@redhat.com> - 5.2.14-200
+- Linux v5.2.14
+
+* Fri Sep 06 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.13-200
+- Linux v5.2.13
+
+* Thu Aug 29 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.11-200
+- Linux v5.2.11
+- Fix CVE-2019-15504 (rhbz 1746725 1746726)
+- Fix CVE-2019-15505 (rhbz 1746732 1746734)
+- Fix CVE-2019-15538 (rhbz 1746777 1746779)
+
+* Wed Aug 28 2019 Justin M. Forbes <jforbes@fedoraproject.org>
+- Fix mwifiex CVE-2019-14814 CVE-2019-14815 CVE-2019-14816
+- (rhbz 1744130 1744137 1744149 1746566 1746567)
+
+* Mon Aug 26 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.10-200
+- Linux v5.2.10
+
+* Fri Aug 16 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.9-200
+- Linux v5.2.9
+
+* Sat Aug 10 2019 Justin M. Forbes <jforbes@redhat.com> - 5.2.8-200
+- Linux v5.2.8
+
+* Thu Aug 08 2019 Justin M. Forbes <jforbes@redhat.com> - 5.2.7-200
+- Linux v5.2.7
+
+* Tue Aug 06 2019 Laura Abbott <labbott@redhat.com>
+- Fix netfilter regression (rhbz 1737171)
+
+* Mon Aug 05 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.6-200
+- Linux v5.2.6
+- Temporary fixes for (rhbz 1737046 1730762)
+
+* Wed Jul 31 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.5-200
+- Linux v5.2.5
+- Fix CVE-2019-10207 (rhbz 1733874 1734242)
+
+* Tue Jul 30 2019 Justin M. Forbes <jforbes@fedoraproject.org>
+- Fix for screen freezes with i915
+
+* Mon Jul 29 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.4-200
+- Linux v5.2.4 Rebase
+
+* Fri Jul 26 2019 Jeremy Cline <jcline@redhat.com> - 5.1.20-300
+- Linux v5.1.20
 
 * Mon Jul 22 2019 Laura Abbott <labbott@redhat.com>
 - Bring in DMA fix (rhbz 1732045)
 
-* Sun Jul 21 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.2-200
-- Linux v5.2.2
+* Mon Jul 22 2019 Jeremy Cline <jcline@redhat.com> - 5.1.19-300
+- Linux v5.1.19
+- Fix Xen Security Advisory 300 (rhbz 1731862 1731864)
+- Fix a null pointer dereference in the 8250_lpss serial driver (rhbz 1731784)
 
-* Sat Jul 20 2019 Justin M. Forbes <jforbes@redhat.com> - 5.2.1-200
-- Linux v5.2.1
+* Thu Jul 18 2019 Jeremy Cline <jcline@redhat.com>
+- Fix CVE-2019-13631 (rhbz 1731000 1731001)
 
-* Sat Jul 20 2019 Hans de Goede <hdegoede@redhat.com>
-- Fix the LCD panel orientation on the GPD MicroPC
+* Mon Jul 15 2019 Jeremy Cline <jcline@redhat.com> - 5.1.18-300
+- Linux v5.1.18
 
-* Fri Jul 19 2019 Peter Robinson <pbrobinson@fedoraproject.org>
-- RHBZ Bug 1576593 - work around while vendor investigates
+* Wed Jul 10 2019 Jeremy Cline <jcline@redhat.com> - 5.1.17-300
+- Linux v5.1.17
 
-* Tue Jul 09 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.2.0-200
-- Linux v5.2.0
+* Mon Jul 08 2019 Jeremy Cline <jcline@redhat.com>
+- Fix a firmware crash in Intel 7000 and 8000 devices (rhbz 1716334)
+
+* Thu Jul  4 2019 Peter Robinson <pbrobinson@fedoraproject.org>
+- Fixes for load avg and display on Raspberry Pi
+
+* Wed Jul 03 2019 Jeremy Cline <jcline@redhat.com> - 5.1.16-300
+- Linux v5.1.16
+- Fix an issue with deleting singular conntrack entries (rhbz 1724357)
+
+* Tue Jun 25 2019 Jeremy Cline <jcline@redhat.com> - 5.1.15-300
+- Linux v5.1.15
+- Fixes CVE-2019-12817 (rhbz 1720616 1723697)
+
+* Mon Jun 24 2019 Hans de Goede <hdegoede@redhat.com>
+- Extend GPD MicroPC LCD panel quirk to also apply to newer BIOS versions
+
+* Mon Jun 24 2019 Jeremy Cline <jcline@redhat.com> - 5.1.14-300
+- Linux v5.1.14
+
+* Wed Jun 19 2019 Jeremy Cline <jcline@redhat.com> - 5.1.12-300
+- Linux v5.1.12
+
+* Mon Jun 17 2019 Jeremy Cline <jcline@redhat.com> - 5.1.11-300
+- Linux v5.1.11
+- Fixes CVE-2019-11477	(rhbz 1719123 1721254)
+- Fixes CVE-2019-11479	(rhbz 1719129 1721255)
+- Fixes CVE-2019-11478	(rhbz 1719128 1721256)
+
+* Mon Jun 17 2019 Jeremy Cline <jcline@redhat.com> - 5.1.10-300
+- Linux v5.1.10
+
+* Fri Jun 14 2019 Hans de Goede <hdegoede@redhat.com>
+- Fix the LCD panel an Asus EeePC 1025C not lighting up (rhbz#1697069)
+- Fix the LCD panel on the GPD MicroPC not working
+
+* Thu Jun 13 2019 Justin M. Forbes <jforbes@fedoraproject.org>
+- Fix CVE-2019-10126 (rhbz 1716992 1720122)
+
+* Tue Jun 11 2019 Jeremy Cline <jcline@redhat.com> - 5.1.9-300
+- Linux v5.1.9
+- Fix UDP checkshums for SIP packets (rhbz 1716289)
+
+* Sun Jun 09 2019 Jeremy Cline <jcline@redhat.com> - 5.1.8-300
+- Linux v5.1.8
+
+* Fri Jun 07 2019 Justin M. Forbes <jforbes@fedoraproject.org>
+- Fix CVE-2019-12614 (rhbz 1718176 1718185)
+
+* Thu Jun 06 2019 Jeremy Cline <jcline@redhat.com>
+- Fix incorrect permission denied with lock down off (rhbz 1658675)
+- Fix an issue with the IPv6 neighbor table (rhbz 1708717)
+
+* Wed Jun 05 2019 Justin M. Forbes <jforbes@fedoraproject.org>
+- Fix CVE-2019-12456 (rhbz 1717182 1717183)
+
+* Tue Jun 04 2019 Jeremy Cline <jcline@redhat.com> - 5.1.7-300
+- Linux v5.1.7
+- Fix CVE-2019-12455 (rhbz 1716990 1717003)
+- Fix CVE-2019-12454 (rhbz 1716996 1717003)
+
+* Mon Jun 03 2019 Justin M. Forbes <jforbes@fedoraproject.org>
+- Fix CVE-2019-12378 (rhbz 1715459 1715460)
+- Fix CVE-2019-3846 (rhbz 1713059 1715475)
+- Fix CVE-2019-12380 (rhbz 1715494 1715495)
+- Fix CVE-2019-12381 (rhbz 1715501 1715502)
+- Fix CVE-2019-12382 (rhbz 1715554 1715556)
+- Fix CVE-2019-12379 (rhbz 1715491 1715706)
+
+* Fri May 31 2019 Laura Abbott <labbott@redhat.com> - 5.1.6-300
+- Linux v5.1.6
+
+* Sat May 25 2019 Jeremy Cline <jcline@redhat.com> - 5.1.5-300
+- Linux v5.1.5
+
+* Fri May 24 2019 Jeremy Cline <jcline@redhat.com> - 5.1.4-301
+- Fix fstrim discarding too many blocks
 
 * Wed May 22 2019 Jeremy Cline <jcline@redhat.com> - 5.1.4-300
 - Linux v5.1.4
+- Fix an issue with Bluetooth 2.0 and earlier devices (rhbz 1711468)
 
-* Thu May 16 2019 Jeremy Cline <jcline@redhat.com> - 5.1.3-300
-- Linux v5.1.3
+* Mon May 20 2019 Laura Abbott <labbott@redhat.com> - 5.0.17-300
+- Linux v5.0.17
 
-* Tue May 14 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.1.2-300
-- Linux v5.1.2
+* Tue May 14 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.0.16-300
+- Linux v5.0.16
 - Fixes CVE-2018-12126 (rhbz 1646781 1709976)
 - Fixes CVE-2018-12127 (rhbz 1667782 1709978)
 - Fixes CVE-2018-12130 (rhbz 1646784 1709989 1709996)
 - Fixes CVE-2019-11091 (rhbz 1705312 1709983)
 
-* Sat May 11 2019 Justin M. Forbes <jforbes@fedoraproject.org> - 5.1.1-300
-- Linux v5.1.1
+* Mon May 13 2019 Laura Abbott <labbott@redhat.com> - 5.0.15-300
+- Linux v5.0.15
+- Fixes CVE-2019-11884 (rhbz 1709837 1709838)
 
-* Tue May 07 2019 Jeremy Cline <jcline@redhat.com> - 5.1.0-300
-- Linux v5.1.0
+* Thu May 09 2019 Laura Abbott <labbott@redhat.com> - 5.0.14-300
+- Linux v5.0.14
 
 * Mon May 06 2019 Laura Abbott <labbott@redhat.com> - 5.0.13-300
 - Linux v5.0.13
