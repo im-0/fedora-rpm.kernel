@@ -89,7 +89,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 0
+%define stable_update 1
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -824,13 +824,13 @@ Patch310: Raspberry-Pi-4-PCIe-support.patch
 Patch311: ARM-Enable-thermal-support-for-Raspberry-Pi-4.patch
 # https://patchwork.kernel.org/patch/11299997/
 Patch312: bcm283x-gpu-drm-v3d-Add-ARCH_BCM2835-to-DRM_V3D-Kconfig.patch
+# https://patchwork.kernel.org/cover/11353083/
+Patch313: arm64-pinctrl-bcm2835-Add-support-for-all-BCM2711-GPIOs.patch
 
 # Tegra bits
 Patch320: arm64-tegra-jetson-tx1-fixes.patch
 # https://www.spinics.net/lists/linux-tegra/msg43110.html
 Patch321: arm64-tegra-Jetson-TX2-Allow-bootloader-to-configure.patch
-
-Patch322: arm64-usb-host-xhci-tegra-set-MODULE_FIRMWARE-for-tegra186.patch
 
 # 400 - IBM (ppc/s390x) patches
 
@@ -2886,6 +2886,9 @@ fi
 #
 #
 %changelog
+* Sun Feb 02 2020 Peter Robinson <pbrobinson@gmail.com> - 5.5.1-200
+- Linux v5.5.1
+
 * Tue Jan 28 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.5.0-200
 - Linux v5.5
 
