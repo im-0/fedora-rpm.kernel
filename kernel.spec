@@ -89,7 +89,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 1
+%define stable_update 2
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -826,6 +826,8 @@ Patch311: ARM-Enable-thermal-support-for-Raspberry-Pi-4.patch
 Patch312: bcm283x-gpu-drm-v3d-Add-ARCH_BCM2835-to-DRM_V3D-Kconfig.patch
 # https://patchwork.kernel.org/cover/11353083/
 Patch313: arm64-pinctrl-bcm2835-Add-support-for-all-BCM2711-GPIOs.patch
+# https://github.com/raspberrypi/linux/commit/c74b1b53254016fd83b580b8d49bb02d72ce4836
+Patch314: usb-xhci-Raspberry-Pi-FW-loader-for-VIA-VL805.patch
 
 # Tegra bits
 Patch320: arm64-tegra-jetson-tx1-fixes.patch
@@ -2886,6 +2888,9 @@ fi
 #
 #
 %changelog
+* Wed Feb 05 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.5.2-200
+- Linux v5.5.2
+
 * Sun Feb 02 2020 Peter Robinson <pbrobinson@gmail.com> - 5.5.1-200
 - Linux v5.5.1
 
