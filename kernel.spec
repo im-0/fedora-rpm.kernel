@@ -89,7 +89,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 2
+%define stable_update 3
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -799,8 +799,6 @@ Patch201: 0002-Add-efi_status_to_str-and-rework-efi_status_to_err.patch
 Patch202: 0003-Make-get_cert_list-use-efi_status_to_str-to-print-er.patch
 
 Patch204: efi-secureboot.patch
-
-Patch205: lift-lockdown-sysrq.patch
 
 Patch206: s390-Lock-down-the-kernel-when-the-IPL-secure-flag-i.patch
 
@@ -2888,6 +2886,12 @@ fi
 #
 #
 %changelog
+* Tue Feb 11 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.5.3-200
+- Linux v5.5.3
+
+* Mon Feb 10 2020 Jeremy Cline <jcline@redhat.com>
+- Remove sysrq support to lift lockdown (rhbz 1800859)
+
 * Wed Feb 05 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.5.2-200
 - Linux v5.5.2
 
