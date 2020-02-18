@@ -887,6 +887,14 @@ Patch125: 0001-ALSA-hda-Workaround-for-spurious-wakeups-on-some-Int.patch
 # Work around a bug in gcc https://gcc.gnu.org/bugzilla/show_bug.cgi?id=96377
 Patch126: 0001-Work-around-for-gcc-bug-https-gcc.gnu.org-bugzilla-s.patch
 
+# im's patches: HBA mode on HP P410 controllers
+Patch1001: 0001-scsi-hpsa-Add-function-to-check-if-device-is-a-disk-.patch
+Patch1002: 0002-scsi-hpsa-Support-HBA-mode-on-HP-Smart-Array-P410i-c.patch
+Patch1003: 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.patch
+Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
+Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
+Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -2993,6 +3001,7 @@ fi
 %changelog
 * Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.7.12-200.im0
 - Disable signing (but keep dependency on openssl-devel)
+- Add patches for HBA mode on HP P410 controllers
 
 * Sat Aug 01 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.7.12-200
 - Linux v5.7.12
