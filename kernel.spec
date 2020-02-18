@@ -91,13 +91,13 @@ Summary: The Linux kernel
 
 # Signing for secure boot authentication
 %ifarch %{secure_boot_arch}
-%global signkernel 1
+%global signkernel 0
 %else
 %global signkernel 0
 %endif
 
 # Sign modules on all arches
-%global signmodules 1
+%global signmodules 0
 
 # Compress modules only for architectures that build modules
 %ifarch noarch
@@ -151,7 +151,7 @@ Summary: The Linux kernel
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 200%{?buildid}%{?dist}
+%define specrelease 200.im0%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.3.11
 
@@ -653,9 +653,7 @@ BuildRequires: pciutils-devel
 BuildRequires: libnl3-devel
 %endif
 %endif
-%if %{with_tools} || %{signmodules} || %{signkernel}
 BuildRequires: openssl-devel
-%endif
 %if %{with_bpftool}
 BuildRequires: python3-docutils
 BuildRequires: zlib-devel binutils-devel
@@ -693,7 +691,6 @@ BuildConflicts: dwarves < 1.13
 BuildRequires: kabi-dw
 %endif
 
-%if %{signkernel}%{signmodules}
 BuildRequires: openssl
 %if %{signkernel}
 # ELN uses Fedora signing process, so exclude
@@ -703,7 +700,6 @@ BuildRequires: system-sb-certs
 %ifarch x86_64 aarch64
 BuildRequires: nss-tools
 BuildRequires: pesign >= 0.10-4
-%endif
 %endif
 %endif
 
@@ -3406,6 +3402,9 @@ fi
 #
 #
 %changelog
+* Thu Sep 15 2022 Ivan Mironov <mironov.ivan@gmail.com> - 6.3.11-200.im0
+- Disable signing (but keep dependency on openssl-devel)
+
 * Sun Jul 02 2023 Justin M. Forbes <jforbes@fedoraproject.org> [6.3.11-0]
 - Linux v6.3.11
 
