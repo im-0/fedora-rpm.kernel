@@ -922,6 +922,14 @@ Patch519: vboxguest-fixes.patch
 # rhbz 1830150
 Patch520: 0001-platform-x86-sony-laptop-SNC-calls-should-handle-BUF.patch
 
+# im's patches: HBA mode on HP P410 controllers
+Patch1001: 0001-scsi-hpsa-Add-function-to-check-if-device-is-a-disk-.patch
+Patch1002: 0002-scsi-hpsa-Support-HBA-mode-on-HP-Smart-Array-P410i-c.patch
+Patch1003: 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.patch
+Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
+Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
+Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -3020,6 +3028,7 @@ fi
 %changelog
 * Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.6.14-300.im0
 - Disable signing (but keep dependency on openssl-devel)
+- Add patches for HBA mode on HP P410 controllers
 
 * Wed May 20 2020 Hans de Goede <hdegoede@redhat.com> - 5.6.14-300
 - Fix automatic guest resolution resizing of VirtualBox VMs (rhbz 1789545)
