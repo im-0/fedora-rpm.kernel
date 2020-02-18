@@ -755,6 +755,15 @@ Source4000: README.rst
 %if !%{nopatches}
 
 Patch1: patch-%{stableversion}-redhat.patch
+
+# im's patches: HBA mode on HP P410 controllers
+Patch1001: 0001-scsi-hpsa-Add-function-to-check-if-device-is-a-disk-.patch
+Patch1002: 0002-scsi-hpsa-Support-HBA-mode-on-HP-Smart-Array-P410i-c.patch
+Patch1003: 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.patch
+Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
+Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
+Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1258,6 +1267,14 @@ cp -a %{SOURCE1} .
 %if !%{nopatches}
 
 ApplyOptionalPatch patch-%{stableversion}-redhat.patch
+
+ApplyOptionalPatch 0001-scsi-hpsa-Add-function-to-check-if-device-is-a-disk-.patch
+ApplyOptionalPatch 0002-scsi-hpsa-Support-HBA-mode-on-HP-Smart-Array-P410i-c.patch
+ApplyOptionalPatch 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.patch
+ApplyOptionalPatch 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
+ApplyOptionalPatch 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
+ApplyOptionalPatch 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
+
 %endif
 
 ApplyOptionalPatch linux-kernel-test.patch
@@ -2765,6 +2782,7 @@ fi
 %changelog
 * Tue May 04 2021 Ivan Mironov <mironov.ivan@gmail.com> - 5.11.18-300.im0
 - Disable signing (but keep dependency on openssl-devel)
+- Add patches for HBA mode on HP P410 controllers
 
 * Mon May 03 2021 Justin M. Forbes <jforbes@fedoraproject.org> [5.11.18-300]
 - nitro_enclaves: Fix stale file descriptors on failed usercopy (Mathias Krause)
