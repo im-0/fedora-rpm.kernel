@@ -814,6 +814,14 @@ Patch98: 0001-arm64-dts-sun50i-a64-pinephone-Enable-LCD-support-on.patch
 Patch99: 0001-arm64-dts-sun50i-a64-pinephone-Add-touchscreen-suppo.patch
 Patch100: 0001-Work-around-for-gcc-bug-https-gcc.gnu.org-bugzilla-s.patch
 
+# im's patches: HBA mode on HP P410 controllers
+Patch1001: 0001-scsi-hpsa-Add-function-to-check-if-device-is-a-disk-.patch
+Patch1002: 0002-scsi-hpsa-Support-HBA-mode-on-HP-Smart-Array-P410i-c.patch
+Patch1003: 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.patch
+Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
+Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
+Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1415,6 +1423,13 @@ ApplyOptionalPatch 0001-drm-panel-st7703-Assert-reset-prior-to-powering-down.pat
 ApplyOptionalPatch 0001-arm64-dts-sun50i-a64-pinephone-Enable-LCD-support-on.patch
 ApplyOptionalPatch 0001-arm64-dts-sun50i-a64-pinephone-Add-touchscreen-suppo.patch
 ApplyOptionalPatch 0001-Work-around-for-gcc-bug-https-gcc.gnu.org-bugzilla-s.patch
+
+ApplyOptionalPatch 0001-scsi-hpsa-Add-function-to-check-if-device-is-a-disk-.patch
+ApplyOptionalPatch 0002-scsi-hpsa-Support-HBA-mode-on-HP-Smart-Array-P410i-c.patch
+ApplyOptionalPatch 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.patch
+ApplyOptionalPatch 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
+ApplyOptionalPatch 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
+ApplyOptionalPatch 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
 
 %endif
 
@@ -2850,6 +2865,7 @@ fi
 %changelog
 * Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.0-1.im0
 - Disable signing (but keep dependency on openssl-devel)
+- Add patches for HBA mode on HP P410 controllers
 
 * Mon Aug 03 2020 Fedora Kernel Team <kernel-team@fedoraproject.org> [5.8.0-1]
 - v5.8 rebase
