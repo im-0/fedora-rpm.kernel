@@ -40,13 +40,13 @@ Summary: The Linux kernel
 
 # Signing for secure boot authentication
 %ifarch %{secure_boot_arch}
-%global signkernel 1
+%global signkernel 0
 %else
 %global signkernel 0
 %endif
 
 # Sign modules on all arches
-%global signmodules 1
+%global signmodules 0
 
 # Compress modules only for architectures that build modules
 %ifarch noarch
@@ -69,13 +69,13 @@ Summary: The Linux kernel
 %endif
 
 %define rpmversion 5.8.0
-%define pkgrelease 1
+%define pkgrelease 1.im0
 
 # This is needed to do merge window version magic
 %define patchlevel 8
 
 # allow pkg_release to have configurable %%{?dist} tag
-%define specrelease 1%{?buildid}%{?dist}
+%define specrelease 1.im0%{?buildid}%{?dist}
 
 %define pkg_release %{specrelease}
 
@@ -538,13 +538,11 @@ BuildConflicts: dwarves < 1.13
 BuildRequires: kabi-dw
 %endif
 
-%if %{signkernel}%{signmodules}
 BuildRequires: openssl openssl-devel
 %if %{signkernel}
 %ifarch x86_64 aarch64
 BuildRequires: nss-tools
 BuildRequires: pesign >= 0.10-4
-%endif
 %endif
 %endif
 
@@ -2850,6 +2848,9 @@ fi
 #
 #
 %changelog
+* Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.0-1.im0
+- Disable signing (but keep dependency on openssl-devel)
+
 * Mon Aug 03 2020 Fedora Kernel Team <kernel-team@fedoraproject.org> [5.8.0-1]
 - v5.8 rebase
 - Updated changelog for the release based on ac3a0c847296 (Fedora Kernel Team)
