@@ -101,7 +101,7 @@ Summary: The Linux kernel
 
 # Signing for secure boot authentication
 %ifarch %{secure_boot_arch}
-%global signkernel 1
+%global signkernel 0
 %else
 %global signkernel 0
 %endif
@@ -123,7 +123,7 @@ Summary: The Linux kernel
 %endif
 
 # Sign modules on all arches
-%global signmodules 1
+%global signmodules 0
 
 # Add additional rhel certificates to system trusted keys.
 %global rhelkeys 1
@@ -178,7 +178,7 @@ Summary: The Linux kernel
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 300%{?buildid}%{?dist}
+%define specrelease 300.im0%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.4
 
@@ -879,7 +879,6 @@ BuildConflicts: dwarves < 1.13
 BuildRequires: kabi-dw
 %endif
 
-%if %{signkernel}%{signmodules}
 BuildRequires: openssl
 %if %{signkernel}
 # ELN uses Fedora signing process, so exclude
@@ -889,7 +888,6 @@ BuildRequires: system-sb-certs
 %ifarch x86_64 aarch64 riscv64
 BuildRequires: nss-tools
 BuildRequires: pesign >= 0.10-4
-%endif
 %endif
 %endif
 
@@ -4827,6 +4825,9 @@ fi\
 #
 #
 %changelog
+* Thu Mar 21 2024 Ivan Mironov <mironov.ivan@gmail.com> - 7.3.4-300.im0
+- Disable signing (but keep dependency on openssl-devel)
+
 * Tue Nov 10 2026 Augusto Caringi <acaringi@redhat.com> [7.3.4-300]
 - crypto: testmgr - fix trailing whitespace from merge conflict resolution (Augusto Caringi)
 
