@@ -74,13 +74,13 @@ Summary: The Linux kernel
 
 # Signing for secure boot authentication
 %ifarch %{secure_boot_arch}
-%global signkernel 1
+%global signkernel 0
 %else
 %global signkernel 0
 %endif
 
 # Sign modules on all arches
-%global signmodules 1
+%global signmodules 0
 
 # Compress modules only for architectures that build modules
 %ifarch noarch
@@ -105,13 +105,13 @@ Summary: The Linux kernel
 %endif
 
 %define rpmversion 5.11.3
-%define pkgrelease 300
+%define pkgrelease 300.im0
 
 # This is needed to do merge window version magic
 %define patchlevel 11
 
 # allow pkg_release to have configurable %%{?dist} tag
-%define specrelease 300%{?buildid}%{?dist}
+%define specrelease 300.im0%{?buildid}%{?dist}
 
 %define pkg_release %{specrelease}
 
@@ -572,13 +572,11 @@ BuildConflicts: dwarves < 1.13
 BuildRequires: kabi-dw
 %endif
 
-%if %{signkernel}%{signmodules}
 BuildRequires: openssl openssl-devel
 %if %{signkernel}
 %ifarch x86_64 aarch64
 BuildRequires: nss-tools
 BuildRequires: pesign >= 0.10-4
-%endif
 %endif
 %endif
 
@@ -2762,6 +2760,9 @@ fi
 #
 #
 %changelog
+* Thu Mar 04 2021 Ivan Mironov <mironov.ivan@gmail.com> - 5.11.3-300.im0
+- Disable signing (but keep dependency on openssl-devel)
+
 * Thu Mar 04 2021 Justin M. Forbes <jforbes@fedoraproject.org> [5.11.3-5]
 - arm64: dts: rockchip: disable USB type-c DisplayPort (Jian-Hong Pan)
 - Build PHY_TEGRA194_P2U and PCIE_TEGRA194_HOST in, not as modules (Peter Robinson)
