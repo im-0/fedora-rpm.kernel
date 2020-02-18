@@ -97,13 +97,13 @@ Summary: The Linux kernel
 
 # Signing for secure boot authentication
 %ifarch %{secure_boot_arch}
-%global signkernel 1
+%global signkernel 0
 %else
 %global signkernel 0
 %endif
 
 # Sign modules on all arches
-%global signmodules 1
+%global signmodules 0
 
 # Compress modules only for architectures that build modules
 %ifarch noarch
@@ -132,13 +132,13 @@ Summary: The Linux kernel
 
 %define rpmversion 5.17.11
 %define patchversion 5.17
-%define pkgrelease 300
+%define pkgrelease 300.im0
 
 # This is needed to do merge window version magic
 %define patchlevel 17
 
 # allow pkg_release to have configurable %%{?dist} tag
-%define specrelease 300%{?buildid}%{?dist}
+%define specrelease 300.im0%{?buildid}%{?dist}
 
 %define pkg_release %{specrelease}
 
@@ -621,9 +621,7 @@ BuildRequires: libcap-devel libcap-ng-devel
 BuildRequires: pciutils-devel
 %endif
 %endif
-%if %{with_tools} || %{signmodules} || %{signkernel}
 BuildRequires: openssl-devel
-%endif
 %if %{with_bpftool}
 BuildRequires: python3-docutils
 BuildRequires: zlib-devel binutils-devel
@@ -656,13 +654,11 @@ BuildConflicts: dwarves < 1.13
 BuildRequires: kabi-dw
 %endif
 
-%if %{signkernel}%{signmodules}
 BuildRequires: openssl
 %if %{signkernel}
 %ifarch x86_64 aarch64
 BuildRequires: nss-tools
 BuildRequires: pesign >= 0.10-4
-%endif
 %endif
 %endif
 
@@ -3015,6 +3011,9 @@ fi
 #
 #
 %changelog
+* Fri Apr 29 2022 Ivan Mironov <mironov.ivan@gmail.com> - 5.17.11-300.im0
+- Disable signing (but keep dependency on openssl-devel)
+
 * Wed May 25 2022 Justin M. Forbes <jforbes@fedoraproject.org> [5.17.11-0]
 - Linux v5.17.11 (Justin M. Forbes)
 
