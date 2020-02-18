@@ -870,6 +870,14 @@ Patch110: memory-tegra-Remove-GPU-from-DRM-IOMMU-group.patch
 # CVE-2020-25211 rhbz 1877571 1877572
 Patch111: netfilter-ctnetlink-add-range-check-for-l3-l4-protonum.patch
 
+# im's patches: HBA mode on HP P410 controllers
+Patch1001: 0001-scsi-hpsa-Add-function-to-check-if-device-is-a-disk-.patch
+Patch1002: 0002-scsi-hpsa-Support-HBA-mode-on-HP-Smart-Array-P410i-c.patch
+Patch1003: 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.patch
+Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
+Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
+Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -2976,6 +2984,7 @@ fi
 %changelog
 * Sun Sep 13 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.8-200.im0
 - Disable signing (but keep dependency on openssl-devel)
+- Add patches for HBA mode on HP P410 controllers
 
 * Thu Sep 10 2020 Justin M. Forbes <jforbes@fedoraproject.org>
 - Fix CVE-2020-25211 (rhbz 1877571 1877572)
