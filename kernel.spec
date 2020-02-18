@@ -842,6 +842,14 @@ Patch101: 0001-PCI-Add-MCFG-quirks-for-Tegra194-host-controllers.patch
 # A patch to fix some undocumented things broke a bunch of Allwinner networks due to wrong assumptions
 Patch102: 0001-update-phy-on-pine64-a64-devices.patch
 
+# im's patches: HBA mode on HP P410 controllers
+Patch1001: 0001-scsi-hpsa-Add-function-to-check-if-device-is-a-disk-.patch
+Patch1002: 0002-scsi-hpsa-Support-HBA-mode-on-HP-Smart-Array-P410i-c.patch
+Patch1003: 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.patch
+Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
+Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
+Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -2957,6 +2965,7 @@ fi
 %changelog
 * Thu Dec 31 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.10.4-200.im0
 - Disable signing (but keep dependency on openssl-devel)
+- Add patches for HBA mode on HP P410 controllers
 
 * Wed Dec 30 11:51:28 CST 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.10.4-200
 - Linux v5.10.4
