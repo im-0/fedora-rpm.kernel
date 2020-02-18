@@ -74,13 +74,13 @@ Summary: The Linux kernel
 
 # Signing for secure boot authentication
 %ifarch %{secure_boot_arch}
-%global signkernel 1
+%global signkernel 0
 %else
 %global signkernel 0
 %endif
 
 # Sign modules on all arches
-%global signmodules 1
+%global signmodules 0
 
 # Compress modules only for architectures that build modules
 %ifarch noarch
@@ -106,13 +106,13 @@ Summary: The Linux kernel
 
 %define rpmversion 5.11.6
 %define stableversion 5.11
-%define pkgrelease 300
+%define pkgrelease 300.im0
 
 # This is needed to do merge window version magic
 %define patchlevel 11
 
 # allow pkg_release to have configurable %%{?dist} tag
-%define specrelease 300%{?buildid}%{?dist}
+%define specrelease 300.im0%{?buildid}%{?dist}
 
 %define pkg_release %{specrelease}
 
@@ -573,13 +573,11 @@ BuildConflicts: dwarves < 1.13
 BuildRequires: kabi-dw
 %endif
 
-%if %{signkernel}%{signmodules}
 BuildRequires: openssl openssl-devel
 %if %{signkernel}
 %ifarch x86_64 aarch64
 BuildRequires: nss-tools
 BuildRequires: pesign >= 0.10-4
-%endif
 %endif
 %endif
 
@@ -2763,6 +2761,9 @@ fi
 #
 #
 %changelog
+* Fri Mar 12 2021 Ivan Mironov <mironov.ivan@gmail.com> - 5.11.6-300.im0
+- Disable signing (but keep dependency on openssl-devel)
+
 * Thu Mar 11 2021 Justin M. Forbes <jforbes@fedoraproject.org> [5.11.6-8]
 - Forgot to turn this back on when disabling gcc plugins (Justin M. Forbes)
 - Fedora: Turn on SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC option (Hans de Goede)
