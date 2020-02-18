@@ -103,13 +103,13 @@ Summary: The Linux kernel
 
 # Signing for secure boot authentication
 %ifarch %{secure_boot_arch}
-%global signkernel 1
+%global signkernel 0
 %else
 %global signkernel 0
 %endif
 
 # Sign modules on all arches
-%global signmodules 1
+%global signmodules 0
 
 # Compress modules only for architectures that build modules
 %ifarch noarch
@@ -168,7 +168,7 @@ Summary: The Linux kernel
 # This is needed to do merge window version magic
 %define patchlevel 15
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 200%{?buildid}%{?dist}
+%define specrelease 200.im0%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.15.5
 
@@ -794,9 +794,7 @@ BuildRequires: python3-pyyaml python3-jsonschema python3-pip python3-setuptools 
 BuildRequires: (python3-wheel if python3-setuptools < 70)
 %endif
 
-%if %{with_tools} || %{signmodules} || %{signkernel}
 BuildRequires: openssl-devel
-%endif
 %if %{with_selftests}
 BuildRequires: clang llvm-devel fuse-devel zlib-devel binutils-devel python3-docutils python3-jsonschema
 %ifarch x86_64 riscv64
@@ -829,7 +827,6 @@ BuildConflicts: dwarves < 1.13
 BuildRequires: kabi-dw
 %endif
 
-%if %{signkernel}%{signmodules}
 BuildRequires: openssl
 %if %{signkernel}
 # ELN uses Fedora signing process, so exclude
@@ -839,7 +836,6 @@ BuildRequires: system-sb-certs
 %ifarch x86_64 aarch64 riscv64
 BuildRequires: nss-tools
 BuildRequires: pesign >= 0.10-4
-%endif
 %endif
 %endif
 
@@ -4261,6 +4257,9 @@ fi\
 #
 #
 %changelog
+* Thu Mar 21 2024 Ivan Mironov <mironov.ivan@gmail.com> - 6.15.5-200.im0
+- Disable signing (but keep dependency on openssl-devel)
+
 * Sun Jul 06 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.15.5-0]
 - io_uring: gate REQ_F_ISREG on !S_ANON_INODE as well (Jens Axboe)
 - Linux v6.15.5
