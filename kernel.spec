@@ -37,13 +37,13 @@ Summary: The Linux kernel
 
 # Signing for secure boot authentication
 %ifarch %{secure_boot_arch}
-%global signkernel 1
+%global signkernel 0
 %else
 %global signkernel 0
 %endif
 
 # Sign modules on all arches
-%global signmodules 1
+%global signmodules 0
 
 # Compress modules only for architectures that build modules
 %ifarch noarch
@@ -80,7 +80,7 @@ Summary: The Linux kernel
 # For non-released -rc kernels, this will be appended after the rcX and
 # gitX tags, so a 3 here would become part of release "0.rcX.gitX.3"
 #
-%global baserelease 200
+%global baserelease 200.im0
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
@@ -600,13 +600,11 @@ BuildConflicts: dwarves < 1.13
 BuildRequires: kabi-dw
 %endif
 
-%if %{signkernel}%{signmodules}
 BuildRequires: openssl openssl-devel
 %if %{signkernel}
 %ifarch x86_64 aarch64
 BuildRequires: nss-tools
 BuildRequires: pesign >= 0.10-4
-%endif
 %endif
 %endif
 
@@ -2978,6 +2976,9 @@ fi
 #
 #
 %changelog
+* Wed Nov 11 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.9.8-200.im0
+- Disable signing (but keep dependency on openssl-devel)
+
 * Tue Nov 10 15:34:25 CST 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.9.8-200
 - Linux v5.9.8
 - Fixes CVE-2020-8694 (rhbz 1828580 1896525)
