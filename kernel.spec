@@ -892,6 +892,10 @@ Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
 Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
 Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
 
+# im's patches: Wine fsync support (for corresponding Proton/Wine patches)
+Patch1101: v3-1-4-futex-Implement-mechanism-to-wait-on-any-of-several-futexes.patch
+Patch1102: 0005-futex-Add-Proton-compatibility-code.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -2999,6 +3003,7 @@ fi
 * Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.7.10-201.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
+- Wine fsync support (for corresponding Proton/Wine patches)
 
 * Wed Jul 22 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.7.10-201
 - Linux v5.7.10
