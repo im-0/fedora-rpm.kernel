@@ -815,6 +815,10 @@ Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
 Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
 Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
 
+# im's patches: Wine fsync support (for corresponding Proton/Wine patches)
+Patch1101: v3-1-4-futex-Implement-mechanism-to-wait-on-any-of-several-futexes.patch
+Patch1102: 0005-futex-Add-Proton-compatibility-code.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1430,6 +1434,10 @@ ApplyPatch 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.patch
 ApplyPatch 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
 ApplyPatch 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
 ApplyPatch 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
+
+# im's patches: Wine fsync support (for corresponding Proton/Wine patches)
+ApplyPatch v3-1-4-futex-Implement-mechanism-to-wait-on-any-of-several-futexes.patch
+ApplyPatch 0005-futex-Add-Proton-compatibility-code.patch
 
 %endif
 
@@ -2849,6 +2857,7 @@ fi
 * Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.7.0-1.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
+- Wine fsync support (for corresponding Proton/Wine patches)
 
 * Mon Jun 01 2020 CKI@GitLab <cki-project@redhat.com> [5.7.0-1]
 - v5.7 rebase
