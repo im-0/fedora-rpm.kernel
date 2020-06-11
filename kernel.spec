@@ -80,19 +80,19 @@ Summary: The Linux kernel
 # For non-released -rc kernels, this will be appended after the rcX and
 # gitX tags, so a 3 here would become part of release "0.rcX.gitX.3"
 #
-%global baserelease 300
+%global baserelease 200
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
 # on top of -- for example, 3.1-rc7-git1 starts with a 3.0 base,
 # which yields a base_sublevel of 0.
-%define base_sublevel 6
+%define base_sublevel 7
 
 ## If this is a released kernel ##
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 3
+%define stable_update 2
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -791,124 +791,74 @@ Source5000: patch-5.%{base_sublevel}-git%{gitrev}.xz
 
 %if !%{nopatches}
 
-# Git trees.
-
-# Standalone patches
-# 100 - Generic long running patches
-
-# 200 - x86 / secureboot
-
-# bz 1497559 - Make kernel MODSIGN code not error on missing variables
-Patch201: 0002-Add-efi_status_to_str-and-rework-efi_status_to_err.patch
-Patch202: 0003-Make-get_cert_list-use-efi_status_to_str-to-print-er.patch
-
-Patch204: efi-secureboot.patch
-
-Patch206: s390-Lock-down-the-kernel-when-the-IPL-secure-flag-i.patch
-
-# 300 - ARM patches
-Patch300: arm64-Add-option-of-13-for-FORCE_MAX_ZONEORDER.patch
-
-# RHBZ Bug 1576593 - work around while vendor investigates
-Patch301: arm-make-highpte-not-expert.patch
-
-# https://patchwork.kernel.org/patch/10351797/
-Patch302: ACPI-scan-Fix-regression-related-to-X-Gene-UARTs.patch
-# rhbz 1574718
-Patch303: ACPI-irq-Workaround-firmware-issue-on-X-Gene-based-m400.patch
-
-Patch304: ARM-tegra-usb-no-reset.patch
-
-# Raspberry Pi
-# https://patchwork.kernel.org/cover/11353083/
-Patch310: arm64-pinctrl-bcm2835-Add-support-for-all-BCM2711-GPIOs.patch
-# v5 https://patchwork.kernel.org/cover/11429245/
-Patch311: USB-pci-quirks-Add-Raspberry-Pi-4-quirk.patch
-# https://patchwork.kernel.org/patch/11372935/
-Patch312: bcm2835-irqchip-Quiesce-IRQs-left-enabled-by-bootloader.patch
-# https://patchwork.kernel.org/patch/11420129/
-Patch313: ARM-dts-bcm2711-Move-emmc2-into-its-own-bus.patch
-# Upstream commit f87391eec2c5 thread: https://www.spinics.net/lists/linux-mmc/msg58036.html
-Patch314: arm-bcm2711-mmc-sdhci-iproc-Add-custom-set_power-callback.patch
-# https://patchwork.freedesktop.org/patch/358980/
-Patch315: drm-vc4-Fix-HDMI-mode-validation.patch
-# Upstream commit 57b76faf1d78
-Patch316: arm-bcm2835-serial-8250_early-support-aux-uart.patch
-
-# Tegra bits
-# https://www.spinics.net/lists/linux-tegra/msg48152.html
-Patch320: ARM64-Tegra-fixes.patch
-# http://patchwork.ozlabs.org/patch/1230891/
-Patch321: arm64-serial-8250_tegra-Create-Tegra-specific-8250-driver.patch
-# https://lkml.org/lkml/2020/2/14/401
-Patch323: arm64-tegra-fix-pcie.patch
-# http://patchwork.ozlabs.org/patch/1243162/
-Patch324: regulator-pwm-Don-t-warn-on-probe-deferral.patch
-# http://patchwork.ozlabs.org/patch/1243112/
-Patch325: backlight-lp855x-Ensure-regulators-are-disabled-on-probe-failure.patch
-# https://patchwork.ozlabs.org/patch/1261638/
-Patch326: arm64-drm-tegra-Fix-SMMU-support-on-Tegra124-and-Tegra210.patch
-# http://patchwork.ozlabs.org/patch/1221384/
-Patch327: PCI-Add-MCFG-quirks-for-Tegra194-host-controllers.patch
-
-# Coral
-Patch330: arm64-dts-imx8mq-phanbell-Add-support-for-ethernet.patch
-
-# Pine64 bits
-# 340-345 queued for 5.7
-Patch340: arm64-pinebook-fixes.patch
-Patch341: arm64-a64-mbus.patch
-# v4 https://patchwork.kernel.org/cover/11420797/
-Patch342: Add-support-for-the-pine64-Pinebook-Pro.patch
-# https://patchwork.kernel.org/cover/11405517/
-Patch343: Add-LCD-support-for-Pine64-Pinebook-1080p.patch
-# https://lkml.org/lkml/2020/1/15/1320
-Patch344: arm64-pine64-pinetab.patch
-# https://www.spinics.net/lists/arm-kernel/msg789135.html
-Patch345: arm64-pine64-pinephone.patch
-# https://patchwork.kernel.org/cover/11440399/
-Patch346: Add-support-for-PinePhone-LCD-panel.patch
-
-# 400 - IBM (ppc/s390x) patches
-
-# 500 - Temp fixes/CVEs etc
-# rhbz 1431375
-Patch501: input-rmi4-remove-the-need-for-artifical-IRQ.patch
-
-# gcc9 fixes
-Patch502: 0001-Drop-that-for-now.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1701096
-# Submitted upstream at https://lkml.org/lkml/2019/4/23/89
-Patch503: KEYS-Make-use-of-platform-keyring-for-module-signature.patch
-
-# Fixes a boot hang on debug kernels
-# https://bugzilla.redhat.com/show_bug.cgi?id=1756655
-Patch504: 0001-mm-kmemleak-skip-late_init-if-not-skip-disable.patch
-
-# it seems CONFIG_OPTIMIZE_INLINING has been forced now and is causing issues on ARMv7
-# https://lore.kernel.org/patchwork/patch/1132459/
-# https://lkml.org/lkml/2019/8/29/1772
-Patch505: ARM-fix-__get_user_check-in-case-uaccess_-calls-are-not-inlined.patch
-
-# More DP-MST fixes, pending for 5.7
-Patch507: drm-dp-mst-error-handling-improvements.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1811850
-Patch509: drm-i915-backports.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1816621
-# https://patchwork.ozlabs.org/patch/1260523/
-Patch511: e1000e-bump-up-timeout-to-wait-when-ME-un-configure-ULP-mode.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1820196
-Patch512: 0001-ALSA-hda-realtek-Add-quirk-for-Lenovo-Carbon-X1-8th-.patch
-
-# nouveau runpm and secboot fixes
-# Accepted nouveau upstream https://github.com/skeggsb/nouveau/commit/f5755e7069d4acbcce1a93692421f358241ead7b
-Patch513: 0001-drm-nouveau-workaround-runpm-fail-by-disabling-PCI-p.patch
-# Accepted nouveau upstream https://github.com/skeggsb/nouveau/commit/41c6a13e8143af71928749ea9895d2ebc2fb4ffd
-Patch514: 0002-drm-nouveau-gr-gp107-gp108-implement-workaround-for-.patch
+Patch6: 0001-ACPI-APEI-arm64-Ignore-broken-HPE-moonshot-APEI-supp.patch
+Patch8: 0001-ACPI-irq-Workaround-firmware-issue-on-X-Gene-based-m.patch
+Patch9: 0001-aarch64-acpi-scan-Fix-regression-related-to-X-Gene-U.patch
+Patch10: 0001-acpi-prefer-booting-with-ACPI-over-DTS.patch
+Patch11: 0001-kdump-round-up-the-total-memory-size-to-128M-for-cra.patch
+Patch12: 0001-kdump-add-support-for-crashkernel-auto.patch
+Patch15: 0001-kdump-fix-a-grammar-issue-in-a-kernel-message.patch
+Patch19: 0001-Vulcan-AHCI-PCI-bar-fix-for-Broadcom-Vulcan-early-si.patch
+Patch20: 0001-ahci-thunderx2-Fix-for-errata-that-affects-stop-engi.patch
+Patch24: 0001-scsi-smartpqi-add-inspur-advantech-ids.patch
+Patch26: 0001-ipmi-do-not-configure-ipmi-for-HPE-m400.patch
+Patch28: 0001-iommu-arm-smmu-workaround-DMA-mode-issues.patch
+Patch29: 0001-arm-aarch64-Drop-the-EXPERT-setting-from-ARM64_FORCE.patch
+Patch31: 0001-Add-efi_status_to_str-and-rework-efi_status_to_err.patch
+Patch32: 0001-Make-get_cert_list-use-efi_status_to_str-to-print-er.patch
+Patch33: 0001-security-lockdown-expose-a-hook-to-lock-the-kernel-d.patch
+Patch34: 0001-efi-Add-an-EFI_SECURE_BOOT-flag-to-indicate-secure-b.patch
+Patch35: 0001-efi-Lock-down-the-kernel-if-booted-in-secure-boot-mo.patch
+Patch36: 0001-s390-Lock-down-the-kernel-when-the-IPL-secure-flag-i.patch
+Patch37: 0001-Add-option-of-13-for-FORCE_MAX_ZONEORDER.patch
+Patch58: 0001-arm-make-CONFIG_HIGHPTE-optional-without-CONFIG_EXPE.patch
+Patch59: 0001-ARM-tegra-usb-no-reset.patch
+Patch60: 0001-backlight-lp855x-Ensure-regulators-are-disabled-on-p.patch
+Patch61: 0001-dt-bindings-Add-doc-for-Pine64-Pinebook-Pro.patch
+Patch62: 0001-Input-rmi4-remove-the-need-for-artificial-IRQ-in-cas.patch
+Patch63: 0001-Drop-that-for-now.patch
+Patch64: 0001-KEYS-Make-use-of-platform-keyring-for-module-signatu.patch
+Patch65: 0001-mm-kmemleak-skip-late_init-if-not-skip-disable.patch
+Patch66: 0001-ARM-fix-__get_user_check-in-case-uaccess_-calls-are-.patch
+Patch67: 0001-soc-bcm2835-Sync-xHCI-reset-firmware-property-with-d.patch
+Patch68: 0001-firmware-raspberrypi-Introduce-vl805-init-routine.patch
+Patch69: 0001-PCI-brcmstb-Wait-for-Raspberry-Pi-s-firmware-when-pr.patch
+Patch70: 0001-USB-pci-quirks-Add-Raspberry-Pi-4-quirk.patch
+Patch71: 0001-dt-bindings-panel-add-binding-for-Xingbangda-XBD599-.patch
+Patch72: 0001-drm-panel-add-Xingbangda-XBD599-panel.patch
+Patch73: 0001-drm-sun4i-sun6i_mipi_dsi-fix-horizontal-timing-calcu.patch
+Patch74: 0001-arm64-allwinner-dts-a64-add-LCD-related-device-nodes.patch
+Patch75: 0001-e1000e-bump-up-timeout-to-wait-when-ME-un-configure-.patch
+Patch76: 0001-perf-cs-etm-Move-defined-of-traceid_list.patch
+Patch77: 0001-pwm-lpss-Fix-get_state-runtime-pm-reference-handling.patch
+Patch79: 0001-disp-gv100-expose-capabilities-class.patch
+Patch80: 0001-core-memory-remove-redundant-assignments-to-variable.patch
+Patch81: 0001-acr-Use-kmemdup-instead-of-kmalloc-and-memcpy.patch
+Patch82: 0001-drm-Use-generic-helper-to-check-_PR3-presence.patch
+Patch83: 0001-mmu-Remove-unneeded-semicolon.patch
+Patch84: 0001-device-rework-mmio-mapping-code-to-get-rid-of-second.patch
+Patch85: 0001-device-detect-if-changing-endianness-failed.patch
+Patch86: 0001-device-detect-vGPUs.patch
+Patch87: 0001-device-use-regular-PRI-accessors-in-chipset-detectio.patch
+Patch88: 0001-kms-Fix-regression-by-audio-component-transition.patch
+Patch89: 0001-disp-nv50-increase-timeout-on-pio-channel-free-polli.patch
+Patch90: 0001-disp-hda-gt215-pass-head-to-nvkm_ior.hda.eld.patch
+Patch91: 0001-disp-hda-gf119-add-HAL-for-programming-device-entry-.patch
+Patch92: 0001-disp-hda-gf119-select-HDA-device-entry-based-on-boun.patch
+Patch93: 0001-disp-hda-gv100-NV_PDISP_SF_AUDIO_CNTRL0-register-mov.patch
+Patch94: 0001-kms-nv50-Initialize-core-channel-in-nouveau_display_.patch
+Patch95: 0001-kms-nv50-Probe-SOR-and-PIOR-caps-for-DP-interlacing-.patch
+Patch96: 0001-kms-gv100-Add-support-for-interlaced-modes.patch
+Patch97: 0001-kms-nv50-Move-8BPC-limit-for-MST-into-nv50_mstc_get_.patch
+Patch98: 0001-kms-nv50-Share-DP-SST-mode_valid-handling-with-MST.patch
+Patch99: 0001-virt-vbox-Fix-VBGL_IOCTL_VMMDEV_REQUEST_BIG-and-_LOG.patch
+Patch100: 0001-virt-vbox-Fix-guest-capabilities-mask-check.patch
+Patch101: 0001-virt-vbox-Rename-guest_caps-struct-members-to-set_gu.patch
+Patch102: 0001-virt-vbox-Add-vbg_set_host_capabilities-helper-funct.patch
+Patch103: 0001-virt-vbox-Add-support-for-the-new-VBG_IOCTL_ACQUIRE_.patch
+Patch104: 0001-virt-vbox-Add-a-few-new-vmmdev-request-types-to-the-.patch
+Patch105: 0001-virt-vbox-Log-unknown-ioctl-requests-as-error.patch
+Patch106: 0001-platform-x86-sony-laptop-SNC-calls-should-handle-BUF.patch
 
 # END OF PATCH DEFINITIONS
 
@@ -1263,6 +1213,7 @@ Provides: kernel-modules = %{version}-%{release}%{?1:+%{1}}\
 Provides: installonlypkg(kernel-module)\
 Provides: kernel%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{?variant}%{?1:+%{1}}\
 Requires: kernel-uname-r = %{KVERREL}%{?variant}%{?1:+%{1}}\
+Recommends: alsa-sof-firmware\
 AutoReq: no\
 AutoProv: yes\
 %description %{?1:%{1}-}modules\
@@ -3005,6 +2956,81 @@ fi
 #
 #
 %changelog
+* Wed Jun 10 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.7.2-200
+- Linux v5.7.2 rebase
+
+* Wed Jun 10 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.18-300
+- Linux v5.6.18
+
+* Mon Jun 08 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.17-300
+- Linux v5.6.17
+
+* Thu Jun 04 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.16-300
+- Fix CVE-2020-10757 (rhbz 1842525 184388)
+
+* Wed Jun 03 2020 Justin M. Forbes <jforbes@fedoraproject.org>
+- Linux v5.6.16
+
+* Thu May 28 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.15-300
+- Linux v5.6.15
+
+* Wed May 20 2020 Hans de Goede <hdegoede@redhat.com> - 5.6.14-300
+- Fix automatic guest resolution resizing of VirtualBox VMs (rhbz 1789545)
+- Fix Sony laptop hang on resume from suspend (rhbz 1830150)
+
+* Wed May 20 2020 Justin M. Forbes <jforbes@fedoraproject.org>
+- Linux v5.6.14
+- Fix CVE-2020-12888 (rhbz 1836245 1836244)
+
+* Mon May 18 2020 Justin M. Forbes <jforbes@fedoraproject.org>
+- Fix stability issue with the jetson-tk1 NIC
+
+* Mon May 18 2020 Hans de Goede <hdegoede@redhat.com>
+- Add patch fixing backlight control on Cherry Trail devices (rhbz 1828927)
+
+* Thu May 14 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.13-300
+- Linux v5.6.13
+- Fix boot hang caused by buggy TPM support (rhbz 1779611)
+- Fix CVE-2020-12655 (rhbz 1832543 1832545)
+
+* Thu May 14 2020 Peter Robinson <pbrobinson@fedoraproject.org>
+- Fix for NIC issues on Jetson Xavier AGX
+
+* Tue May 12 2020 Justin M. Forbes <jforbes@fedoraproject.org>
+- Fix CVE-2020-10711 (rhbz 1825116 1834778)
+
+* Mon May 11 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.12-300
+- Linux v5.6.12
+
+* Wed May 06 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.11-300
+- Linux v5.6.11
+
+* Mon May 04 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.10-300
+- Linux v5.6.10
+
+* Wed Apr 29 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.8-300
+- Linux v5.6.8
+- Fixes CVE-2020-11884 (rhbz 1828149 1829181)
+
+* Tue Apr 28 2020 Justin M. Forbes <jforbes@fedoraproject.org>
+- MST Fix from Lyude Paul
+- drm/i915/gem: Hold obj->vma.lock over for_each_ggtt_vma() (airlied request)
+
+* Thu Apr 23 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.7-300
+- Linux v5.6.7
+
+* Tue Apr 21 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.6-300
+- Linux v5.6.6
+
+* Fri Apr 17 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.6.5-300
+- Linux v5.6.5
+
+* Thu Apr 16 2020 Justin M. Forbes <jforbes@fedoraproject.org>
+- Nouveau Add missing MODULE_FIRMWARE() lines for initramfs generators (rhbz 1825046)
+
+* Mon Apr 13 2020 Jeremy Cline <jcline@redhat.com> - 5.6.4-300
+- Linux v5.6.4
+
 * Wed Apr 08 2020 Jeremy Cline <jcline@redhat.com> - 5.6.3-300
 - Linux v5.6.3
 
