@@ -872,6 +872,9 @@ Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
 Patch1101: v3-1-4-futex-Implement-mechanism-to-wait-on-any-of-several-futexes.patch
 Patch1102: 0005-futex-Add-Proton-compatibility-code.patch
 
+# im's patches: Fix for amdgpu NULL dereference on Vega20 w/o RAS
+Patch1201: 0001-drm-amd-powerplay-Fix-NULL-dereference-in-lock_bus-o.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -2972,6 +2975,7 @@ fi
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Wine fsync support (for corresponding Proton/Wine patches)
+- Add fix for amdgpu NULL dereference on Vega20 w/o RAS
 
 * Wed Jun 17 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.7.3-200
 - Linux v5.7.3
