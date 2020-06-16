@@ -80,7 +80,7 @@ Summary: The Linux kernel
 # For non-released -rc kernels, this will be appended after the rcX and
 # gitX tags, so a 3 here would become part of release "0.rcX.gitX.3"
 #
-%global baserelease 200.im0
+%global baserelease 200.im1
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
@@ -869,6 +869,9 @@ Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
 # im's patches: Wine fsync support (for corresponding Proton/Wine patches)
 Patch1101: v3-1-4-futex-Implement-mechanism-to-wait-on-any-of-several-futexes.patch
 Patch1102: 0005-futex-Add-Proton-compatibility-code.patch
+
+# im's patches: Fix for amdgpu NULL dereference on Vega20 w/o RAS
+Patch1201: 0001-drm-amd-powerplay-Fix-NULL-dereference-in-lock_bus-o.patch
 
 # END OF PATCH DEFINITIONS
 
@@ -2966,6 +2969,9 @@ fi
 #
 #
 %changelog
+* Wed Jun 17 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.7.2-200.im1
+- Add fix for amdgpu NULL dereference on Vega20 w/o RAS
+
 * Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.7.2-200.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
