@@ -92,7 +92,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 4
+%define stable_update 5
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -828,7 +828,6 @@ Patch73: 0001-drm-sun4i-sun6i_mipi_dsi-fix-horizontal-timing-calcu.patch
 Patch74: 0001-arm64-allwinner-dts-a64-add-LCD-related-device-nodes.patch
 Patch75: 0001-e1000e-bump-up-timeout-to-wait-when-ME-un-configure-.patch
 Patch76: 0001-perf-cs-etm-Move-defined-of-traceid_list.patch
-Patch77: 0001-pwm-lpss-Fix-get_state-runtime-pm-reference-handling.patch
 Patch79: 0001-disp-gv100-expose-capabilities-class.patch
 Patch80: 0001-core-memory-remove-redundant-assignments-to-variable.patch
 Patch81: 0001-acr-Use-kmemdup-instead-of-kmalloc-and-memcpy.patch
@@ -2971,12 +2970,13 @@ fi
 #
 #
 %changelog
-* Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.7.4-200.im0
+* Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.7.5-200.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Wine fsync support (for corresponding Proton/Wine patches)
 - Add fix for amdgpu NULL dereference on Vega20 w/o RAS
 - Bump to 5.7.4
+- Bump to 5.7.5
 
 * Wed Jun 17 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.7.3-200
 - Linux v5.7.3
