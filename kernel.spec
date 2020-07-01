@@ -92,7 +92,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 6
+%define stable_update 7
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -2967,7 +2967,7 @@ fi
 #
 #
 %changelog
-* Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.7.6-200.im0
+* Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.7.7-200.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Wine fsync support (for corresponding Proton/Wine patches)
@@ -2975,6 +2975,7 @@ fi
 - Bump to 5.7.4
 - Bump to 5.7.5
 - Bump to 5.7.6
+- Bump to 5.7.7
 
 * Wed Jun 17 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.7.3-200
 - Linux v5.7.3
