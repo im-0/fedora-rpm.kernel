@@ -1223,6 +1223,15 @@ Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
 Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
 Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
 
+# im's patches: Tanix TX6
+Patch1201: 0001-mfd-Add-support-for-AC200.patch
+Patch1202: 0002-net-phy-Add-support-for-AC200-EPHY.patch
+Patch1203: 0003-arm64-dts-allwinner-h6-Add-AC200-EPHY-related-nodes.patch
+Patch1204: 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
+Patch1205: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
+Patch1206: 0006-Revert-net-phy-stop-exporting-phy_driver_register.patch
+Patch1207: 0007-Revert-net-phy-stop-exporting-phy_driver_unregister.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -2185,6 +2194,14 @@ ApplyOptionalPatch 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.pat
 ApplyOptionalPatch 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
 ApplyOptionalPatch 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
 ApplyOptionalPatch 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
+
+ApplyOptionalPatch 0001-mfd-Add-support-for-AC200.patch
+ApplyOptionalPatch 0002-net-phy-Add-support-for-AC200-EPHY.patch
+ApplyOptionalPatch 0003-arm64-dts-allwinner-h6-Add-AC200-EPHY-related-nodes.patch
+ApplyOptionalPatch 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
+ApplyOptionalPatch 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
+ApplyOptionalPatch 0006-Revert-net-phy-stop-exporting-phy_driver_register.patch
+ApplyOptionalPatch 0007-Revert-net-phy-stop-exporting-phy_driver_unregister.patch
 
 %endif
 
@@ -4843,6 +4860,7 @@ fi\
 * Thu Mar 21 2024 Ivan Mironov <mironov.ivan@gmail.com> - 7.0.11-200.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
+- Add support for Tanix TX6
 
 * Mon Jun 01 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.0.11-1]
 - Revert "crypto/krb5, rxrpc: Fix lack of pre-decrypt/pre-verify length checks" (Justin M. Forbes)
