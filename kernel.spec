@@ -861,6 +861,14 @@ Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
 # im's patches: Fix support of clone of Sony DualShock 4
 Patch1101: 0001-HID-sony-Support-for-DS4-clones-that-do-not-implemen.patch
 
+# im's patches: Tanix TX6
+Patch1201: 0001-mfd-Add-support-for-AC200.patch
+Patch1202: 0002-net-phy-Add-support-for-AC200-EPHY.patch
+Patch1203: 0003-arm64-dts-allwinner-h6-Add-AC200-EPHY-related-nodes.patch
+Patch1204: 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
+Patch1205: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
+Patch1206: 0006-arm64-dts-allwinner-h6-Enable-eMMC-for-Tanix-TX6.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -2978,6 +2986,7 @@ fi
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Add patch for Sony DualShock 4 clone
+- Add support for Tanix TX6
 
 * Wed Jan 20 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 5.10.9-201
 - Fix for ARMv7 builder pause issue
