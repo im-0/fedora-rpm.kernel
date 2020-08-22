@@ -864,6 +864,14 @@ Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
 Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
 Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
 
+# im's patches: Tanix TX6
+Patch1101: 0001-mfd-Add-support-for-AC200.patch
+Patch1102: 0002-net-phy-Add-support-for-AC200-EPHY.patch
+Patch1103: 0003-arm64-dts-allwinner-h6-Add-AC200-EPHY-related-nodes.patch
+Patch1104: 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
+Patch1105: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
+Patch1106: 0006-arm64-dts-allwinner-h6-Enable-eMMC-for-Tanix-TX6.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -2980,6 +2988,7 @@ fi
 * Wed Nov 25 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.9.11-200.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
+- Add support for Tanix TX6
 
 * Tue Nov 24 11:22:38 CST 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.9.11-200
 - Linux v5.9.11
