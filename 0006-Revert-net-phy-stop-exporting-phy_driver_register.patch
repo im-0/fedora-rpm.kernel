@@ -1,0 +1,48 @@
+From ee131b3d31c90075ab10bd782d3754c68f1e97af Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Sat, 3 Jan 2026 10:54:21 +0100
+Subject: [PATCH 6/7] Revert "net: phy: stop exporting phy_driver_register"
+
+This reverts commit 092263a03105539b8dfe74c59be4c6cce1304d5f.
+---
+ drivers/net/phy/phy_device.c | 4 ++--
+ include/linux/phy.h          | 1 +
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index 7a67c900e79a..70d5accdd96e 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -3544,8 +3544,7 @@ static int phy_remove(struct device *dev)
+  * @new_driver: new phy_driver to register
+  * @owner: module owning this PHY
+  */
+-static int phy_driver_register(struct phy_driver *new_driver,
+-			       struct module *owner)
++int phy_driver_register(struct phy_driver *new_driver, struct module *owner)
+ {
+ 	int retval;
+ 
+@@ -3588,6 +3587,7 @@ static int phy_driver_register(struct phy_driver *new_driver,
+ 
+ 	return 0;
+ }
++EXPORT_SYMBOL(phy_driver_register);
+ 
+ static void phy_driver_unregister(struct phy_driver *drv)
+ {
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 3c7634482356..e1cc7f8d8ce3 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -2031,6 +2031,7 @@ static inline int phy_read_status(struct phy_device *phydev)
+ }
+ 
+ void phy_drivers_unregister(struct phy_driver *drv, int n);
++int phy_driver_register(struct phy_driver *new_driver, struct module *owner);
+ int phy_drivers_register(struct phy_driver *new_driver, int n,
+ 			 struct module *owner);
+ void phy_error(struct phy_device *phydev);
+-- 
+2.52.0
+
