@@ -1,0 +1,47 @@
+From dad065e19c3c070769eaece1556c543dc8f666b9 Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Mon, 24 Aug 2020 09:50:08 +0500
+Subject: [PATCH 6/6] arm64: dts: allwinner: h6: Enable eMMC for Tanix TX6
+
+Signed-off-by: Ivan Mironov <mironov.ivan@gmail.com>
+---
+ .../boot/dts/allwinner/sun50i-h6-tanix-tx6.dts   | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix-tx6.dts b/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix-tx6.dts
+index b5b934a12e6f..4960ae1e1b38 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix-tx6.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h6-tanix-tx6.dts
+@@ -33,6 +33,13 @@ hdmi_con_in: endpoint {
+ 		};
+ 	};
+ 
++	reg_vcc1v8: vcc1v8 {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc1v8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++	};
++
+ 	reg_vcc3v3: vcc3v3 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc3v3";
+@@ -119,6 +126,15 @@ &mmc0 {
+ 	status = "okay";
+ };
+ 
++&mmc2 {
++	vmmc-supply = <&reg_vcc3v3>;
++	vqmmc-supply = <&reg_vcc1v8>;
++	non-removable;
++	cap-mmc-hw-reset;
++	bus-width = <8>;
++	status = "okay";
++};
++
+ &ohci0 {
+ 	status = "okay";
+ };
+-- 
+2.31.1
+
