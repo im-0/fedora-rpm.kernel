@@ -80,7 +80,7 @@ Summary: The Linux kernel
 # For non-released -rc kernels, this will be appended after the rcX and
 # gitX tags, so a 3 here would become part of release "0.rcX.gitX.3"
 #
-%global baserelease 201.im0
+%global baserelease 201.im1
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
@@ -883,6 +883,9 @@ Patch1103: 0003-arm64-dts-allwinner-h6-Add-AC200-EPHY-related-nodes.patch
 Patch1104: 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 Patch1105: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 Patch1106: 0006-arm64-dts-allwinner-h6-Enable-eMMC-for-Tanix-TX6.patch
+
+# im's patches: Fix for hang during boot on MacBool
+Patch1201: 0001-drm-i915-gem-Workaround-for-hang-during-boot.patch
 
 # END OF PATCH DEFINITIONS
 
@@ -2988,10 +2991,11 @@ fi
 #
 #
 %changelog
-* Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.6-201.im0
+* Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.6-201.im1
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Add support for Tanix TX6
+- Add patch for MacBook/i915 hang
 
 * Thu Sep 03 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.8.6-201
 - Linux v5.8.6
