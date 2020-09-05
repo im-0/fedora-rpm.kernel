@@ -886,6 +886,9 @@ Patch1104: 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 Patch1105: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 Patch1106: 0006-arm64-dts-allwinner-h6-Enable-eMMC-for-Tanix-TX6.patch
 
+# im's patches: Fix for hang during boot on MacBool
+Patch1201: 0001-drm-i915-gem-Workaround-for-hang-during-boot.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -2994,6 +2997,7 @@ fi
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Add support for Tanix TX6
+- Add patch for MacBook/i915 hang
 
 * Thu Sep 10 2020 Justin M. Forbes <jforbes@fedoraproject.org>
 - Fix CVE-2020-25211 (rhbz 1877571 1877572)
