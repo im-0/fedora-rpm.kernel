@@ -1,0 +1,30 @@
+From 6b9944ff341333c6130e0448108d4a7d02b67f51 Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Sat, 5 Sep 2020 08:29:59 +0500
+Subject: [PATCH] drm/i915/gem: Workaround for hang during boot
+
+Patch was taken from
+https://gitlab.freedesktop.org/drm/intel/-/issues/2381, I'm not the
+author.
+
+Signed-off-by: Ivan Mironov <mironov.ivan@gmail.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index 7f76fc68f498..62e5648149d5 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -331,7 +331,7 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
+ 	 * with that bit in the PTE to main memory with just one PIPE_CONTROL.
+ 	 */
+ 	ret = i915_gem_object_set_cache_level(obj,
+-					      HAS_WT(i915) ?
++					      !obj->stolen && HAS_WT(i915) ?
+ 					      I915_CACHE_WT : I915_CACHE_NONE);
+ 	if (ret)
+ 		return ERR_PTR(ret);
+-- 
+2.26.2
+
