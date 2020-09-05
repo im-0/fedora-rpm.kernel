@@ -1,0 +1,32 @@
+From 42b76a7c79d834f751854ef72a2a8926c6d53b3d Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Thu, 17 Sep 2020 23:20:34 +0500
+Subject: [PATCH] drm/i915/gem: Workaround for hang during boot
+
+Patch was taken from
+https://gitlab.freedesktop.org/drm/intel/-/issues/2381, I'm not the
+author.
+
+Signed-off-by: Ivan Mironov <mironov.ivan@gmail.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index 7f76fc68f498..976255aae9ca 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -210,9 +210,7 @@ int i915_gem_object_set_cache_level(struct drm_i915_gem_object *obj,
+ 	i915_gem_object_unlock(obj);
+ 
+ 	/* The cache-level will be applied when each vma is rebound. */
+-	return i915_gem_object_unbind(obj,
+-				      I915_GEM_OBJECT_UNBIND_ACTIVE |
+-				      I915_GEM_OBJECT_UNBIND_BARRIER);
++	return i915_gem_object_unbind(obj, I915_GEM_OBJECT_UNBIND_ACTIVE);
+ }
+ 
+ int i915_gem_get_caching_ioctl(struct drm_device *dev, void *data,
+-- 
+2.26.2
+
