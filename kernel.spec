@@ -80,7 +80,7 @@ Summary: The Linux kernel
 # For non-released -rc kernels, this will be appended after the rcX and
 # gitX tags, so a 3 here would become part of release "0.rcX.gitX.3"
 #
-%global baserelease 201.im1
+%global baserelease 200.im0
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
@@ -92,7 +92,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 6
+%define stable_update 7
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -2991,11 +2991,12 @@ fi
 #
 #
 %changelog
-* Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.6-201.im1
+* Sun Apr 19 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.7-200.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Add support for Tanix TX6
 - Add patch for MacBook/i915 hang
+- Linux v5.8.7
 
 * Thu Sep 03 2020 Justin M. Forbes <jforbes@fedoraproject.org> - 5.8.6-201
 - Linux v5.8.6
