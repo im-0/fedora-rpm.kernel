@@ -92,7 +92,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 8
+%define stable_update 9
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -2993,11 +2993,12 @@ fi
 #
 #
 %changelog
-* Sun Sep 13 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.8-200.im0
+* Sun Sep 13 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.9-200.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Add support for Tanix TX6
 - Add patch for MacBook/i915 hang
+- Linux v5.8.9
 
 * Thu Sep 10 2020 Justin M. Forbes <jforbes@fedoraproject.org>
 - Fix CVE-2020-25211 (rhbz 1877571 1877572)
