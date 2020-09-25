@@ -1664,6 +1664,10 @@ cd ..
 ###
 %build
 
+%ifarch %{arm} aarch64
+%define _smp_mflags -j1
+%endif
+
 %if %{with_sparse}
 %define sparse_mflags	C=1
 %endif
