@@ -905,6 +905,9 @@ Patch1104: 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 Patch1105: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 Patch1106: 0006-arm64-dts-allwinner-h6-Enable-eMMC-for-Tanix-TX6.patch
 
+# im's patches: Fix for hang during boot on MacBool
+Patch1201: 0001-drm-i915-Mark-initial-fb-obj-as-WT-on-eLLC-machines-.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -3020,6 +3023,7 @@ fi
 %changelog
 * Sun Oct 18 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.16-300.im0
 - Update to 5.8.16
+- Replace patch for MacBook/i915 hang
 
 * Thu Oct 15 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.15-300.im0
 - Disable signing (but keep dependency on openssl-devel)
