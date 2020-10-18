@@ -92,7 +92,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 15
+%define stable_update 16
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -3021,6 +3021,9 @@ fi
 #
 #
 %changelog
+* Sun Oct 18 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.16-300.im0
+- Update to 5.8.16
+
 * Thu Oct 15 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.8.15-300.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
