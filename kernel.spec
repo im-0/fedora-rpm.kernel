@@ -94,7 +94,7 @@ Summary: The Linux kernel
 %if 0%{?released_kernel}
 
 # Do we have a -stable update to apply?
-%define stable_update 2
+%define stable_update 3
 # Set rpm version accordingly
 %if 0%{?stable_update}
 %define stablerev %{stable_update}
@@ -2966,6 +2966,9 @@ fi
 #
 #
 %changelog
+* Sat Dec 26 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.10.3-200.im0
+- Linux v5.10.3
+
 * Tue Dec 22 2020 Ivan Mironov <mironov.ivan@gmail.com> - 5.10.2-200.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
