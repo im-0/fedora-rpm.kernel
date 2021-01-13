@@ -868,6 +868,9 @@ Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
 Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
 Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
 
+# im's patches: Fix support of clone of Sony DualShock 4
+Patch1101: 0001-HID-sony-Support-for-DS4-clones-that-do-not-implemen.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1448,6 +1451,8 @@ ApplyOptionalPatch 0003-scsi-hpsa-Add-mask-existing-devices-on-rescan-if-vis.pat
 ApplyOptionalPatch 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
 ApplyOptionalPatch 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
 ApplyOptionalPatch 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
+
+ApplyOptionalPatch 0001-HID-sony-Support-for-DS4-clones-that-do-not-implemen.patch
 
 %endif
 
@@ -3194,6 +3199,7 @@ fi
 * Thu Sep 15 2022 Ivan Mironov <mironov.ivan@gmail.com> - 6.1.8-200.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
+- Add patch for Sony DualShock 4 clone
 
 * Tue Jan 24 2023 Augusto Caringi <acaringi@redhat.com> [6.1.8-0]
 - Linux v6.1.8
