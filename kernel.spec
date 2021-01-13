@@ -858,6 +858,9 @@ Patch1004: 0004-scsi-hpsa-Ignore-HBA-flag-from-NVRAM-if-logical-devi.patch
 Patch1005: 0005-scsi-hpsa-Name-more-fields-in-struct-bmic_identify_c.patch
 Patch1006: 0006-scsi-hpsa-Do-not-use-HBA-flag-from-NVRAM-if-HBA-is-n.patch
 
+# im's patches: Fix support of clone of Sony DualShock 4
+Patch1101: 0001-HID-sony-Support-for-DS4-clones-that-do-not-implemen.patch
+
 # END OF PATCH DEFINITIONS
 
 %endif
@@ -2974,6 +2977,7 @@ fi
 * Wed Jan 20 02:14:03 CST 2021 Ivan Mironov <mironov.ivan@gmail.com> - 5.10.9-200.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
+- Add patch for Sony DualShock 4 clone
 
 * Tue Jan 19 15:00:17 CST 2021 Justin M. Forbes <jforbes@fedoraproject.org> - 5.10.9-200
 - Linux v5.10.9
