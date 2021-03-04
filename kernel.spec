@@ -774,6 +774,9 @@ Patch1204: 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 Patch1205: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 Patch1206: 0006-arm64-dts-allwinner-h6-Enable-eMMC-for-Tanix-TX6.patch
 
+# Fix compilation of Fedora's 5.11.3
+Patch1301: 0001-PCI-tegra-Fix-compilation-of-Fedora-kernel.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1293,6 +1296,8 @@ ApplyOptionalPatch 0003-arm64-dts-allwinner-h6-Add-AC200-EPHY-related-nodes.patc
 ApplyOptionalPatch 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 ApplyOptionalPatch 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 ApplyOptionalPatch 0006-arm64-dts-allwinner-h6-Enable-eMMC-for-Tanix-TX6.patch
+
+ApplyOptionalPatch 0001-PCI-tegra-Fix-compilation-of-Fedora-kernel.patch
 
 %endif
 

@@ -1,0 +1,36 @@
+From f9ee2389ad7c732ac9d65c37e9a42110b402c261 Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Thu, 4 Mar 2021 20:53:13 +0500
+Subject: [PATCH] PCI: tegra: Fix compilation of Fedora kernel
+
+Error:
+	drivers/pci/controller/dwc/pcie-tegra194.c: In function 'tegra194_map_bus':
+	drivers/pci/controller/dwc/pcie-tegra194.c:395:29: error: 'PCIE_ATU_REGION_INDEX0' undeclared (first use in this function); did you mean 'PCIE_ATU_REGION_INBOUND'?
+	  395 |  program_outbound_atu(pcie, PCIE_ATU_REGION_INDEX0, type,
+	      |                             ^~~~~~~~~~~~~~~~~~~~~~
+	      |                             PCIE_ATU_REGION_INBOUND
+
+Constant was removed by commit 9f9e59a4809563f24e3d1377aa804a4b7386a418
+("PCI: dwc: Support multiple ATU memory regions").
+
+Signed-off-by: Ivan Mironov <mironov.ivan@gmail.com>
+---
+ drivers/pci/controller/dwc/pcie-tegra194.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
+index 0a851de769e8..ebb117d00f91 100644
+--- a/drivers/pci/controller/dwc/pcie-tegra194.c
++++ b/drivers/pci/controller/dwc/pcie-tegra194.c
+@@ -392,7 +392,7 @@ static void __iomem *tegra194_map_bus(struct pci_bus *bus,
+ 		type = PCIE_ATU_TYPE_CFG1;
+ 	}
+ 
+-	program_outbound_atu(pcie, PCIE_ATU_REGION_INDEX0, type,
++	program_outbound_atu(pcie, 0, type,
+ 			     cfg->res.start, busdev, SZ_256K);
+ 	return (void __iomem *)(pcie->config_base + where);
+ }
+-- 
+2.29.2
+
