@@ -1,0 +1,78 @@
+From e3a531da3b12236532e34d23c854d4d77d17d354 Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Fri, 30 Jul 2021 22:04:34 +0500
+Subject: [PATCH 2/2] Input: synaptics-rmi4 - fix crash caused by use after
+ free during rmmod
+
+Crash can be reproduced easily by following one-liner (given that
+rmi_smbus is in use):
+
+	while rmmod rmi_smbus; do modprobe rmi_smbus; done
+
+Kernel log:
+
+	...
+	kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
+	BUG: unable to handle page fault for address: ffffc296809d3cf8
+	...
+	CPU: 3 PID: 3032 Comm: rmmod Tainted: G            E     5.13.6-200.im0.fc34.x86_64 #1
+	...
+	Call Trace:
+	 ? irq_dispose_mapping+0xa9/0x120
+	 ? rmi_unregister_function+0x54/0x70 [rmi_core]
+	 ? rmi_free_function_list+0x96/0x110 [rmi_core]
+	 ? rmi_driver_remove+0x48/0x50 [rmi_core]
+	 ? __device_release_driver+0x177/0x230
+	 ? device_release_driver+0x24/0x30
+	 ? bus_remove_device+0xdb/0x140
+	 ? device_del+0x18b/0x3e0
+	 ? __kernfs_remove.part.0+0x178/0x280
+	 ? rmi_unregister_transport_device+0x12/0x20 [rmi_core]
+	 ? rmi_smb_remove+0x11/0x20 [rmi_smbus]
+	 ? i2c_device_remove+0x22/0xb0
+	 ? __device_release_driver+0x177/0x230
+	 ? driver_detach+0xcb/0x110
+	 ? bus_remove_driver+0x58/0xd0
+	 ? i2c_del_driver+0x42/0x70
+	 ? __do_sys_delete_module.constprop.0+0x171/0x280
+	 ? exit_to_user_mode_prepare+0x15f/0x240
+	 ? do_syscall_64+0x3d/0x80
+	 ? entry_SYSCALL_64_after_hwframe+0x44/0xae
+	...
+
+This happens because rmi_free_function_list() -> ... ->
+-> irq_dispose_mapping() tries to do something with IRQ domain already
+freed by irq_domain_remove().
+
+Signed-off-by: Ivan Mironov <mironov.ivan@gmail.com>
+Cc: stable@vger.kernel.org
+Fixes: 24d28e4f1271 ("Input: synaptics-rmi4 - convert irq distribution to irq_domain")
+---
+ drivers/input/rmi4/rmi_driver.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
+index 258d5fe3d395..42eaebb3bf5c 100644
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -994,14 +994,14 @@ static int rmi_driver_remove(struct device *dev)
+ 
+ 	rmi_disable_irq(rmi_dev, false);
+ 
+-	irq_domain_remove(data->irqdomain);
+-	data->irqdomain = NULL;
+-
+ 	cancel_work_sync(&data->attn_work);
+ 
+ 	rmi_f34_remove_sysfs(rmi_dev);
+ 	rmi_free_function_list(rmi_dev);
+ 
++	irq_domain_remove(data->irqdomain);
++	data->irqdomain = NULL;
++
+ 	return 0;
+ }
+ 
+-- 
+2.31.1
+
