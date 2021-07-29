@@ -879,6 +879,10 @@ Patch1203: 0003-arm64-dts-allwinner-h6-Add-AC200-EPHY-related-nodes.patch
 Patch1204: 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 Patch1205: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 
+# im's patches: Fix touchpad on ThinkPad T590
+Patch1301: 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
+Patch1302: 0002-Input-synaptics-rmi4-fix-crash-caused-by-use-after-f.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1467,6 +1471,9 @@ ApplyOptionalPatch 0002-net-phy-Add-support-for-AC200-EPHY.patch
 ApplyOptionalPatch 0003-arm64-dts-allwinner-h6-Add-AC200-EPHY-related-nodes.patch
 ApplyOptionalPatch 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 ApplyOptionalPatch 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
+
+ApplyOptionalPatch 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
+ApplyOptionalPatch 0002-Input-synaptics-rmi4-fix-crash-caused-by-use-after-f.patch
 
 %endif
 
@@ -3216,6 +3223,7 @@ fi
 - Add patches for HBA mode on HP P410 controllers
 - Add patch for Sony DualShock 4 clone
 - Add support for Tanix TX6
+- Fix touchpad on ThinkPad T590
 
 * Fri Nov 11 2022 Justin M. Forbes <jforbes@fedoraproject.org> [6.0.8-0]
 - PCI/PM: Always disable PTM for all devices during suspend (Mark Pearson)
