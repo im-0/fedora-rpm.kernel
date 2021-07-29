@@ -1,0 +1,25 @@
+From 354021d6073b6c51bbb03a64539afb3704540dd3 Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Thu, 29 Jul 2021 10:29:17 +0500
+Subject: [PATCH] Input: synaptics - Enable InterTouch for ThinkPad T590
+
+Signed-off-by: Ivan Mironov <mironov.ivan@gmail.com>
+---
+ drivers/input/mouse/synaptics.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/input/mouse/synaptics.c b/drivers/input/mouse/synaptics.c
+index ffad142801b3..ab983bf3fce6 100644
+--- a/drivers/input/mouse/synaptics.c
++++ b/drivers/input/mouse/synaptics.c
+@@ -186,6 +186,7 @@ static const char * const smbus_pnp_ids[] = {
+ 	"LEN2044", /* L470  */
+ 	"LEN2054", /* E480 */
+ 	"LEN2055", /* E580 */
++	"LEN205b", /* Lenovo ThinkPad T590 */
+ 	"LEN2068", /* T14 Gen 1 */
+ 	"SYN3052", /* HP EliteBook 840 G4 */
+ 	"SYN3221", /* HP 15-ay000 */
+-- 
+2.31.1
+
