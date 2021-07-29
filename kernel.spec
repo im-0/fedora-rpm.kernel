@@ -986,6 +986,9 @@ Patch1203: 0003-arm64-dts-allwinner-h6-Add-AC200-EPHY-related-nodes.patch
 Patch1204: 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 Patch1205: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 
+# im's patches: Fix touchpad on ThinkPad T590
+Patch1301: 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1818,6 +1821,8 @@ ApplyOptionalPatch 0002-net-phy-Add-support-for-AC200-EPHY.patch
 ApplyOptionalPatch 0003-arm64-dts-allwinner-h6-Add-AC200-EPHY-related-nodes.patch
 ApplyOptionalPatch 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 ApplyOptionalPatch 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
+
+ApplyOptionalPatch 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
 
 %endif
 
@@ -3992,6 +3997,7 @@ fi\
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Add support for Tanix TX6
+- Fix touchpad on ThinkPad T590
 
 * Fri Jul 05 2024 Augusto Caringi <acaringi@redhat.com> [6.9.8-0]
 - Add BugsFixed for 6.9 (Justin M. Forbes)
