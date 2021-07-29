@@ -1,0 +1,34 @@
+From 2f6ba70866b3c3804777eed516f0db5ec13c8640 Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Thu, 29 Jul 2021 10:29:17 +0500
+Subject: [PATCH] Input: synaptics - enable InterTouch for ThinkPad T590
+
+This fixes 3-finger gestures in GNOME.
+
+Tested on
+
+	product: 20N4S1T200 (LENOVO_MT_20N4_BU_Think_FM_ThinkPad T590)
+	vendor: LENOVO
+	version: ThinkPad T590
+
+Signed-off-by: Ivan Mironov <mironov.ivan@gmail.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/input/mouse/synaptics.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/input/mouse/synaptics.c b/drivers/input/mouse/synaptics.c
+index ffad142801b3..ab983bf3fce6 100644
+--- a/drivers/input/mouse/synaptics.c
++++ b/drivers/input/mouse/synaptics.c
+@@ -186,6 +186,7 @@ static const char * const smbus_pnp_ids[] = {
+ 	"LEN2044", /* L470  */
+ 	"LEN2054", /* E480 */
+ 	"LEN2055", /* E580 */
++	"LEN205b", /* Lenovo ThinkPad T590 */
+ 	"LEN2068", /* T14 Gen 1 */
+ 	"SYN3052", /* HP EliteBook 840 G4 */
+ 	"SYN3221", /* HP 15-ay000 */
+-- 
+2.37.3
+
