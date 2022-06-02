@@ -120,7 +120,7 @@ Summary: The Linux kernel
 # Set debugbuildsenabled to 0 to not build a separate debug kernel, but
 #  to build the base kernel using the debug configuration. (Specifying
 #  the --with-release option overrides this setting.)
-%define debugbuildsenabled 0
+%define debugbuildsenabled 1
 # define buildid .local
 %define specversion 5.18.1
 %define patchversion 5.18
@@ -130,7 +130,7 @@ Summary: The Linux kernel
 # This is needed to do merge window version magic
 %define patchlevel 18
 # allow pkg_release to have configurable %%{?dist} tag
-%define specrelease 200.im0%{?buildid}%{?dist}
+%define specrelease 200.im1%{?buildid}%{?dist}
 
 #
 # End of genspec.sh variables
@@ -3072,12 +3072,13 @@ fi
 #
 #
 %changelog
-* Fri Apr 29 2022 Ivan Mironov <mironov.ivan@gmail.com> - 5.18.1-200.im0
+* Fri Apr 29 2022 Ivan Mironov <mironov.ivan@gmail.com> - 5.18.1-200.im1
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Add patch for Sony DualShock 4 clone
 - Add support for Tanix TX6
 - Fix touchpad on ThinkPad T590
+- Build separate debug kernel
 
 * Thu May 26 2022 Justin M. Forbes <jforbes@fedoraproject.org> [5.18.0-0]
 - Fix versioning for Stable Fedora (Justin M. Forbes)
