@@ -130,7 +130,7 @@ Summary: The Linux kernel
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 300.im0%{?buildid}%{?dist}
+%define specrelease 300.im1%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 5.19.4
 
@@ -878,6 +878,9 @@ Patch1205: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 Patch1301: 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
 Patch1302: 0002-Input-synaptics-rmi4-fix-crash-caused-by-use-after-f.patch
 
+# Circumvent https://bugzilla.redhat.com/show_bug.cgi?id=2121791
+Patch1401: 0001-Revert-block-freeze-the-queue-earlier-in-del_gendisk.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1469,6 +1472,8 @@ ApplyOptionalPatch 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.pat
 
 ApplyOptionalPatch 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
 ApplyOptionalPatch 0002-Input-synaptics-rmi4-fix-crash-caused-by-use-after-f.patch
+
+ApplyOptionalPatch 0001-Revert-block-freeze-the-queue-earlier-in-del_gendisk.patch
 
 %endif
 
@@ -3176,6 +3181,9 @@ fi
 #
 #
 %changelog
+* Sat Aug 27 2022 Ivan Mironov <mironov.ivan@gmail.com> - 5.19.4-300.im1
+- Circumvent https://bugzilla.redhat.com/show_bug.cgi?id=2121791
+
 * Fri Apr 29 2022 Ivan Mironov <mironov.ivan@gmail.com> - 5.19.4-300.im0
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers

@@ -1,0 +1,36 @@
+From f721ffe9ba30e63ccb72a645271e4cc528b53f9c Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Sat, 27 Aug 2022 15:53:50 +0500
+Subject: [PATCH] Revert "block: freeze the queue earlier in del_gendisk"
+
+https://bugzilla.redhat.com/show_bug.cgi?id=2121791
+
+This reverts commit a09b314005f3a0956ebf56e01b3b80339df577cc.
+---
+ block/genhd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/block/genhd.c b/block/genhd.c
+index 278227ba1d53..e0675772178b 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -623,7 +623,6 @@ void del_gendisk(struct gendisk *disk)
+ 	 * Prevent new I/O from crossing bio_queue_enter().
+ 	 */
+ 	blk_queue_start_drain(q);
+-	blk_mq_freeze_queue_wait(q);
+ 
+ 	if (!(disk->flags & GENHD_FL_HIDDEN)) {
+ 		sysfs_remove_link(&disk_to_dev(disk)->kobj, "bdi");
+@@ -647,6 +646,8 @@ void del_gendisk(struct gendisk *disk)
+ 	pm_runtime_set_memalloc_noio(disk_to_dev(disk), false);
+ 	device_del(disk_to_dev(disk));
+ 
++	blk_mq_freeze_queue_wait(q);
++
+ 	blk_throtl_cancel_bios(disk->queue);
+ 
+ 	blk_sync_queue(q);
+-- 
+2.37.2
+
