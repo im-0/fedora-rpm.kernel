@@ -130,7 +130,7 @@ Summary: The Linux kernel
 # This is needed to do merge window version magic
 %define patchlevel 19
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 300.im0%{?buildid}%{?dist}
+%define specrelease 300.im1%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 5.19.9
 
@@ -3176,7 +3176,7 @@ fi
 #
 #
 %changelog
-* Thu Sep 15 2022 Ivan Mironov <mironov.ivan@gmail.com> - 5.19.9-300.im0
+* Thu Sep 15 2022 Ivan Mironov <mironov.ivan@gmail.com> - 5.19.9-300.im1
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Add patch for Sony DualShock 4 clone
