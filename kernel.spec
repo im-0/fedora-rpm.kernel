@@ -878,6 +878,8 @@ Patch1205: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 Patch1301: 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
 Patch1302: 0002-Input-synaptics-rmi4-fix-crash-caused-by-use-after-f.patch
 
+Patch1401: 0001-ACPI-processor-idle-Practically-limit-Dummy-wait-wor.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1469,6 +1471,8 @@ ApplyOptionalPatch 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.pat
 
 ApplyOptionalPatch 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
 ApplyOptionalPatch 0002-Input-synaptics-rmi4-fix-crash-caused-by-use-after-f.patch
+
+ApplyOptionalPatch 0001-ACPI-processor-idle-Practically-limit-Dummy-wait-wor.patch
 
 %endif
 
@@ -3182,6 +3186,7 @@ fi
 - Add patch for Sony DualShock 4 clone
 - Add support for Tanix TX6
 - Fix touchpad on ThinkPad T590
+- Add patch for disabling "dummy wait" workaround on AMD CPUs
 
 * Sat Oct 15 2022 Justin M. Forbes <jforbes@fedoraproject.org> [5.19.16-0]
 - Reset build for version bump (Justin M. Forbes)
