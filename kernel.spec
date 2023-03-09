@@ -107,7 +107,7 @@ Summary: The Linux kernel
 %endif
 
 %ifarch x86_64
-%global efiuki 1
+%global efiuki 0
 %else
 %global efiuki 0
 %endif
