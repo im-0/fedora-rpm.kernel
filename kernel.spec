@@ -108,7 +108,9 @@ Summary: The Linux kernel
 
 %ifarch x86_64
 %if 0%{?fedora} > 36
-%global efiuki 1
+%global efiuki 0
+%else
+%global efiuki 0
 %endif
 %else
 %global efiuki 0
