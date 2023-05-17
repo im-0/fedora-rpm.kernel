@@ -250,7 +250,11 @@ Summary: The Linux kernel
 %define with_vanilla %{?_with_vanilla: 1} %{?!_with_vanilla: 0}
 
 %ifarch x86_64
+%if 0%{?fedora} < 37
+%define with_efiuki 0
+%else
 %define with_efiuki %{?_without_efiuki: 0} %{?!_without_efiuki: 1}
+%endif
 %else
 %define with_efiuki 0
 %endif
