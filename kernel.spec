@@ -1007,6 +1007,9 @@ Patch1205: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 Patch1301: 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
 Patch1302: 0002-Input-synaptics-rmi4-fix-crash-caused-by-use-after-f.patch
 
+# im's patches: Disable large folios support for XFS
+Patch1401: 0001-Revert-xfs-Support-large-folios.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1818,6 +1821,8 @@ ApplyOptionalPatch 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.pat
 
 ApplyOptionalPatch 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
 ApplyOptionalPatch 0002-Input-synaptics-rmi4-fix-crash-caused-by-use-after-f.patch
+
+ApplyOptionalPatch 0001-Revert-xfs-Support-large-folios.patch
 
 %endif
 
@@ -3885,6 +3890,7 @@ fi\
 - Add patches for HBA mode on HP P410 controllers
 - Add support for Tanix TX6
 - Fix touchpad on ThinkPad T590
+- Disable large folios support for XFS
 
 * Sun Mar 03 2024 Justin M. Forbes <jforbes@fedoraproject.org> [6.7.8-0]
 - Linux v6.7.8
