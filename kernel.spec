@@ -1007,6 +1007,9 @@ Patch1205: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 # im's patches: Fix touchpad on ThinkPad T590
 Patch1301: 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
 
+# im's patches: Disable large folios support for XFS
+Patch1401: 0001-Revert-xfs-Support-large-folios.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -1841,6 +1844,8 @@ ApplyOptionalPatch 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 ApplyOptionalPatch 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 
 ApplyOptionalPatch 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
+
+ApplyOptionalPatch 0001-Revert-xfs-Support-large-folios.patch
 
 %endif
 
@@ -4079,6 +4084,7 @@ fi\
 - Add patches for HBA mode on HP P410 controllers
 - Add support for Tanix TX6
 - Fix touchpad on ThinkPad T590
+- Disable large folios support for XFS
 
 * Wed Sep 18 2024 Augusto Caringi <acaringi@redhat.com> [6.10.11-0]
 - New config for 6.10.11 (Augusto Caringi)
