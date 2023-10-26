@@ -1194,6 +1194,9 @@ Patch1205: 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 Patch1206: 0006-Revert-net-phy-stop-exporting-phy_driver_register.patch
 Patch1207: 0007-Revert-net-phy-stop-exporting-phy_driver_unregister.patch
 
+# im's patches: Disable large folios support for XFS
+Patch1401: 0001-Revert-xfs-Support-large-folios.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -2135,6 +2138,8 @@ ApplyOptionalPatch 0004-arm64-dts-allwinner-h6-tanix-tx6-Enable-ethernet.patch
 ApplyOptionalPatch 0005-mmc-sunxi-fix-unusuable-eMMC-on-some-H6-boards-by-di.patch
 ApplyOptionalPatch 0006-Revert-net-phy-stop-exporting-phy_driver_register.patch
 ApplyOptionalPatch 0007-Revert-net-phy-stop-exporting-phy_driver_unregister.patch
+
+ApplyOptionalPatch 0001-Revert-xfs-Support-large-folios.patch
 
 %endif
 
@@ -4863,6 +4868,7 @@ fi\
 - Disable signing (but keep dependency on openssl-devel)
 - Add patches for HBA mode on HP P410 controllers
 - Add support for Tanix TX6
+- Disable large folios support for XFS
 
 * Tue Nov 10 2026 Augusto Caringi <acaringi@redhat.com> [7.3.4-300]
 - crypto: testmgr - fix trailing whitespace from merge conflict resolution (Augusto Caringi)
