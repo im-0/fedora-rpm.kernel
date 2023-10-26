@@ -1233,6 +1233,9 @@ Patch1207: 0007-Revert-net-phy-stop-exporting-phy_driver_unregister.patch
 # im's patches: Fix touchpad on ThinkPad T590
 Patch1301: 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
 
+# im's patches: Disable large folios support for XFS
+Patch1401: 0001-Revert-xfs-Support-large-folios.patch
+
 %endif
 
 # empty final patch to facilitate testing of kernel patches
@@ -2226,6 +2229,8 @@ ApplyOptionalPatch 0006-Revert-net-phy-stop-exporting-phy_driver_register.patch
 ApplyOptionalPatch 0007-Revert-net-phy-stop-exporting-phy_driver_unregister.patch
 
 ApplyOptionalPatch 0001-Input-synaptics-enable-InterTouch-for-ThinkPad-T590.patch
+
+ApplyOptionalPatch 0001-Revert-xfs-Support-large-folios.patch
 
 %endif
 
@@ -5006,6 +5011,7 @@ fi\
 - Add patches for HBA mode on HP P410 controllers
 - Add support for Tanix TX6
 - Fix touchpad on ThinkPad T590
+- Disable large folios support for XFS
 
 * Mon Sep 21 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.2.7-0]
 - platform/x86: int3472: Increase handshake GPIO delay to 200 ms (Hans de Goede)
