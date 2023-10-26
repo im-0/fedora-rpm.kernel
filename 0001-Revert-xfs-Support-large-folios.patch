@@ -1,0 +1,35 @@
+From 8193c6d3ba5329cb3484ffd7968547ce9aeacc53 Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Wed, 25 Oct 2023 18:43:21 +0200
+Subject: [PATCH] Revert "xfs: Support large folios"
+
+This reverts commit 6795801366da0cd3d99e27c37f020a8f16714886.
+---
+ fs/xfs/xfs_icache.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/fs/xfs/xfs_icache.c b/fs/xfs/xfs_icache.c
+index 9d8dd30bd927..633fec4ca1a0 100644
+--- a/fs/xfs/xfs_icache.c
++++ b/fs/xfs/xfs_icache.c
+@@ -104,8 +104,6 @@ xfs_inode_alloc(
+ 	VFS_I(ip)->i_ino = ino;
+ 	/* VFS doesn't initialise i_mode! */
+ 	VFS_I(ip)->i_mode = 0;
+-	mapping_set_folio_min_order(VFS_I(ip)->i_mapping,
+-				    M_IGEO(mp)->min_folio_order);
+ 
+ 	XFS_STATS_INC(mp, xs_inodes_active);
+ 	ASSERT(atomic_read(&ip->i_pincount) == 0);
+@@ -349,8 +347,6 @@ xfs_reinit_inode(
+ 	inode->i_uid = uid;
+ 	inode->i_gid = gid;
+ 	inode_state_assign_raw(inode, state);
+-	mapping_set_folio_min_order(inode->i_mapping,
+-				    M_IGEO(mp)->min_folio_order);
+ 	return error;
+ }
+ 
+-- 
+2.55.0
+
